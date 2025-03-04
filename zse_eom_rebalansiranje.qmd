@@ -1,0 +1,517 @@
+---
+title: "Efekt rebalansiranja na Zagrebačkoj burzi"
+format: html
+execute:
+  echo: false
+  warning: false
+bibliography: references.bib
+---
+
+# Uvod
+
+Domaći i inozemni investicijski fondovi često održavaju fiksne udjele dionica i obveznica u svom portfoliu. To se posebno odnosi na mirovinske i državne fondove, koji ciljaju određenu strukturu portfolia, poput poznatog 60 - 40 omjera (60% dionice, 40% obveynice). Ovi fondovi često imaju i zakonska ograničenja ulaganja u pojedini tip imovinske klase (dionice i obveznice)[^1]. Ako tijekom određenog razodblja jedna klasa imovine raste u relativnom omjeru u odnosu na drugu klasu imovine, fondovi moraju prodavati imovinsku klasu koja je ostvarila bolje performanse i kupovati klasu imovine koja je ostvarila lošije performanse. Cilj je dosegnuti unaprijed utvrđene pondere u portfoliu. Fondovi dakle moraju kupovati gubitnike i provadati dobitnike, što može imati utjecaj agregatna kretanja dioničkih i obvezničkih tržišta. Rad upravo analizira mogući utjecaj rebalansiranja mirovinskih i drugi fondova na agregatnja kretanja dioničkog i obvezničkog tržišta u RH. Dioničko tržište reprezentira kretanje CROBEX indeksa, a kretanje obvezničkog tržišta kreanje CROBIS-a.
+
+Efekt rebalansiranja[^1]
+
+Rebalansirnaje može uzrokovati velike transakcije troškove[^3] za fondove.
+
+[^1]: Primjerice u RH postoji Pravilnik o dozvoljenim ulagajima i dodatnim ograničenjima ulaganja obveznog mirovisnkog fonda.
+Efekt rebalansiranja označuje promatrani agregatni utjecaj graničnog ili kalendarskog rebalansiranja na cijene dionica i obveynica.
+[^3]: Transakcijski troškovi obuhvačaju brokerske provizije, *bid-ask spreadove* i tržišni utjecaj.
+
+Politika rebalansiranj investicijskih fondova, može se provoditi prema dva pravila: kalendarsko pravilo i granično pravilo @Doe2025. Prema ganičnom pravilu, fondovi provode balansiranje kada udio određene imovinske klase prijeđe određenu, unaprijed utvrđenu granicu. Dopušta se fluktuacija unutar tih utvrđenih granica. Ideja je da se smanje transakcijski troškovi zbog (pre)čestog trgovanja. Prema kalendarskom pravilu, fondovi provode rebalansiranje u jednakim vremenskim intervalima. Najčešće je mjesčno rebalansiranje, iako neki fodnovi mogu koristiti kvartalno ili dnevno rebalansiranje. U ovom radu se pretpostavlja da se rebalansiranje radi na mjesečnoj razini, krajem mjeseca. Ako postoji znatno rebalansiranje na kraju mjeseca, očekuje se rast prinosa imovine s relativno slabijim performansama u prvom dijelu mjeseca i obrnuto. Razlog za mjesečno rebalansiranje može biti potreba za novčanim tokovima na kraju mjeseca @Etula2020. Da bi se utvrdilo točno vrijeme rebalansiranje, nužno je raspolaganje dnevnim podacima o rebalansiranju od investicijskih fondova. Takvi podaci nisu javno dostupni pa se pretpostavlja mjesečno balansiranje koje je najčešći oblik rebalansiranja.
+
+Metodološki, utjecaj graničnog i kalendarskog rebalansiranja analiyira se pomoću tri pristupa. Prvo se provodi deskrištivna analiza kako bi se bi utvrdile neuvjetovane razlike u prinosim između vremena rebalansiranja i ostalih vremena. Potom se provodi regresijska analiza koja isputuje statistički odnos između prinosal. Na kraju se provodi investicijski pristup u kojem se utvrđuju ekonomski efekti rebalansiranja. Ispituje profitabilnost investicijske strategije koja kupuje CROBEX kada je relativno podcjenjen u odnosu na dinamiku CROBIS-a, te kupnju CROBIS-a u obrnutom slučaju.
+
+U analizi robusnosti testira se osjetljivost rezultata na 3 promjene u analizi. Prvo, procjenjujemo efekt rebalansiranja na početku mjesca umjesto na kraju mjeseca. Prvo se izračunava prinos CROBEX-a i CROBIS-a u posljednjih 15-ak trgovinskih dana u mjesecu, te se potom na početku sljedeček mjeseca kupuje imovina koja je ostvarila relativno lošiji rezultat. Rezultati pokazuju da ovakva strategija ostvaruje znatno lošije rezultate od bazične strategije koja kupuje relativno podcjenjenu imovinu 5 dana prije kraja mjeseca.
+
+Drugi dio analize robusnosti analizira utjecaj pomaka u broju dana od kraja mjeseca. Utvrđuje se utjecaj na rezultat s obzirom na pomak varijable od 2 do 10 dana od kraja mjeseca.
+
+Treći dio analize robusnosti analizira jakost efekta kroz vrijeme. moguće je da efekt gubi na snazi jer investitori ugađuju promjene u očekivanja. Zato testiramo prinose strategija za svaku godinu promatranja.
+
+# Pregled literature
+
+Rani doprinos dan je u @PeroldSharpe1988. Autori su pokazali
+
+# Podaci
+
+```{r}
+library(fastverse)
+library(ggplot2)
+library(patchwork)
+library(PerformanceAnalytics)
+library(roll)
+```
+
+```{r}
+# Read data
+dt = fread("data/data.csv")
+
+# Extract CROBEX and CROBIS
+crobex = na.omit(dt[symbol == "crobex"])
+crobis = na.omit(dt[symbol == "crobis"])
+crobex_xts = as.xts.data.table(crobex[, .(date, crobex = last_value / shift(last_value) - 1)])
+crobis_xts = as.xts.data.table(crobis[, .(date, crobex = last_value / shift(last_value) - 1)])
+```
+
+
+U radu se koriste dvije vremenske serije: 1) CROBEX koji odražava agregatnu dunamiku dioničkog tržišta u RH i CROBIS, koji odražava dinamiku obvezničkog tržištau RH. Podaci su preuzeti sa službenih stranica Zagrebačke burze (ZSE). Podaci uključuju OHLC podatke od `{r} dt[, format(min(date), "%d.%m.%Y")]` do `{r} dt[, format(max(date), "%d.%m.%Y")]`. Vremenski nizovi CROBEX-a i CROBIS-a prikazani su na slici @fig-series.
+
+```{r}
+#| label: fig-series
+#| fig-cap: "Dinamika CROBEX-a i CROBIS-a"
+
+# Plot series
+g1 = ggplot(crobex, aes(x = date, y = last_value)) +
+  geom_line() +
+  labs(title = "CROBEX", x = "Date", y = "Value") +
+  scale_x_date(date_breaks = "year", date_labels = "%Y") +
+  labs(x = "", y = "") +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+g2 = ggplot(crobis, aes(x = date, y = last_value  )) +
+  geom_line() +
+  labs(title = "CROBIS", x = "Date", y = "Value") +
+  scale_x_date(date_breaks = "year", date_labels = "%Y") +
+  labs(x = "", y = "") +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+g1 / g2
+```
+
+```{r}
+# Ratio of Crobex and Crobis
+ratio = dcast(dt, date ~ symbol, value.var = "last_value")
+ratio = na.omit(ratio)
+ratio[, ratio := crobex / crobis]
+ratio[, ratio_ema_5 := TTR::EMA(ratio, 10)]
+ratio[, ratio_ema_50 := TTR::EMA(ratio, 20)]
+ratio[, ratio_scaled := (ratio_ema_50 - ratio_ema_5) / ratio_ema_50]
+ratio[, ratio_scaled := roll_scale(ratio_scaled, width = length(ratio), min_obs = 22)]
+
+# 2) Spread
+# ratio[, ratio := log(spy) - log(tlt)]
+# ratio[, ratio_scaled := roll_scale(ratio, width = 22)]
+# ratio = na.omit(ratio)
+```
+
+
+```{r}
+ggplot(ratio[date %between% c(as.Date("2020-01-01"), as.Date("2021-01-01"))], aes(x = date)) +
+  geom_line(aes(y = ratio), color = "black") +
+  geom_line(aes(y = ratio_ema_5, color = "red")) +
+  geom_line(aes(y = ratio_ema_50, color = "blue"))
+```
+
+
+```{r}
+# Define days of month
+dt[, month := data.table::yearmon(date)]
+setorder(dt, symbol, date)
+month_date = unique(dt[, .(month, date)])
+setorder(month_date, date)
+month_date[, day_of_month := 1:.N, by = .(month)]
+dt = month_date[, .(date, day_of_month)][dt, on = c("date")]
+dt[, day_of_month := as.factor(day_of_month)]
+# dt[, .N, by = day_of_month][order(day_of_month)]
+dt[day_of_month == 23, day_of_month := 22] # 23 day to 22 day
+dt[day_of_month == 22, day_of_month := 21] # not sure about this but lets fo with it
+```
+
+```{r}
+# Define momentum variables
+dt[, momentum_month := last_value / shift(last_value, 1) - 1, by = .(symbol, day_of_month)]
+dt[, momentum_year := last_value / shift(last_value, 12) - 1, by = .(symbol, day_of_month)]
+```
+
+
+U tablici xx nalaze se prinosi sažetak statistika za CROBEX i CROBIS. 
+
+```{r}
+# Summary statistics
+
+```
+
+
+# Metodologija
+
+```{r}
+# Performance
+performance = function(ret) {
+  # ret = returns_xts
+  # ret = crobex_xts
+  # Performance measures
+  sr = SharpeRatio.annualized(ret)
+  reta = Return.annualized(ret)
+  dd = Drawdowns(ret)
+  dd = as.data.table(dd)[, .(x = min(.SD)), .SDcols = 2, env = list(x = colnames(dd)[1])]
+  dd = cbind(var = "dd", dd)
+  
+  # 
+  rbind(
+    as.data.table(sr, keep.rownames = "var"),
+    as.data.table(reta, keep.rownames = "var"),
+    dd
+  )
+}
+```
+
+# Rezultati
+
+## Granični efekt - deskriptivna analiza
+
+
+
+## Granični efekt - regresijska analiza
+
+```{r}
+
+```
+
+
+## Granični efekt - pristup investicijske strategije
+
+```{r}
+# Z score of SPY and bon ratios
+threshold_effect = dt[, .(symbol, date, last_value)]
+threshold_effect[, returns := last_value / shift(last_value) - 1, by = symbol]
+threshold_effect = na.omit(threshold_effect)
+threshold_effect = dcast(threshold_effect, date ~ symbol, value.var = "returns")
+threshold_effect = na.omit(threshold_effect)
+threshold_effect = ratio[, .(date, ratio_scaled)][threshold_effect, on = "date"]
+threshold_effect = na.omit(threshold_effect)
+
+# Strategy
+signals = vector("numeric", length = nrow(threshold_effect))
+ratios = threshold_effect[, ratio_scaled]
+threshold = 0.5
+for (i in seq_along(signals)) {
+  if (i == 1) {
+    signals[i] = 0
+  } else if (ratios[i-1] >= threshold & signals[i - 1] == 0) {
+    signals[i] = 1
+  } else if (signals[i - 1] == 1 & ratios[i-1] >= 0) {
+    signals[i] = 1
+  } else if (ratios[i-1] <= -threshold & signals[i - 1] == 0) {
+   signals[i] = -1 
+  } else if (signals[i - 1] == -1 & ratios[i-1] <= 0) {
+   signals[i] = -1  
+  } else {
+    signals[i] = 0
+  }
+} 
+
+# Strategy
+threshold_effect[, strategy := fifelse(signals == 1, crobis, 0)]
+threshold_effect[, strategy := fifelse(signals == -1, crobex, strategy)]
+threshold_effect_xts = as.xts.data.table(threshold_effect[, .(date, strategy)])
+charts.PerformanceSummary(threshold_effect_xts)
+```
+
+```{r}
+performance(threshold_effect_xts)
+```
+
+## Kalendarski efekt
+
+U ovom se poglavlju analiziraju kalendarski efekti rebalansiranja. Ako investicijski fondovi, koji ula\u u RH prilagođavaju udjele dionica i obveznica u portfelju krajem mjeseca, efekt bi trebao imati utjecaj na prinose krajem mjeseca. Prvo se provodi deskriptivna analiza, kako bi se graficki procijenio efekt rebalansiranja na kraju mjeseca. U drugom dijelu se provodi jednostavna regresijska analiza, kako bi se procijenio utjecaj prinosa u prvom dijelu mjeseca na prinose u posljednjem tjednu isto mjeseca. U trećem podpoglavlju se simulira investicijska strategija, koja kupuje i drži podcjenjenu imovinu 5 dana prije kraja mjeseca.
+
+## Desktiptivna analiza
+
+```{r}
+# Calculate returns 5 day before end of the month and returns last 5 days of the month
+ret_1 = dt[, .(ret_1 = .SD[day_of_month == 1, open_value] / .SD[day_of_month == 16, last_value] - 1),
+   by = .(symbol, month)]
+ret_2 = dt[, .(ret_2 = data.table::last(.SD[, last_value]) / .SD[day_of_month == 17, open_value] - 1),
+   by = .(symbol, month)]
+mom_month = dt[, .(momentum_month = .SD[day_of_month == 16, momentum_month]), by = .(symbol, month)]
+mom_year = dt[, .(momentum_year = .SD[day_of_month == 16, momentum_year]), by = .(symbol, month)]
+
+# Merge ret_1 and ret_2
+returns_vars = merge(ret_1, ret_2, by = c("symbol", "month"))
+returns_vars = merge(returns_vars, mom_month, by = c("symbol", "month"))
+returns_vars = merge(returns_vars, mom_year, by = c("symbol", "month"))
+returns_vars = dcast(returns_vars, month ~ symbol, 
+                     value.var = c("ret_1", "ret_2", "momentum_month", "momentum_year"))
+returns = na.omit(returns_vars[, 1:5])
+
+# Ratio of Crobex and Crobis
+returns[, ratio := ret_1_crobex - ret_1_crobis]
+
+# Strategy
+returns[, strategy := ifelse(ret_1_crobex > ret_1_crobis, ret_2_crobis, ret_2_crobex)]
+returns[, strategy_big := ifelse(ret_1_crobex > (ret_1_crobis + 0.03), ret_2_crobis, ret_2_crobex)]
+returns_xts = as.xts.data.table(returns[, .(zoo::as.Date.yearmon(month), strategy)])
+returns_big_xts = as.xts.data.table(returns[, .(zoo::as.Date.yearmon(month), strategy_big)])
+```
+
+```{r}
+#| label: fig-ratio
+#| fig-capČ "Razlika prinosa CROBEX'a i CROBIS-a u prvom dijelu mjeseca"
+
+ggplot(returns, aes(x = month, y = ratio)) +
+  geom_line() +
+  ggtitle("Razlika prinosa CROBEX'a i CROBIS-a u prvom dijelu mjeseca") +
+  labs(x = "", y = "Višak povrata CROBEX-a nad CROBIS-om")
+```
+
+Investicijski fondovi rebalansiraju portfolio ako se udio dionica ili obveznica znatno odmakne od cijanih udjela u portofliu. Primjerice, ako fond želi održavati fiksni udjel dionica i obveznica u omjeru 60/40, te udio dionica tijekom mjeseca naraste na 62%, fond ce krajem mjeseca prodavati dionice i kupovati obveznice.
+
+Na slici @fig-ratio je prikazana razlika prinosa CROBEX-a i CROBIS-a u prvom dijelu mjeseca (oko 15 trgovinskih dana). Vrijednost omjera iznad nule označava veći rast CROBEX-a u prvom dijelu mjeseca, i obrnuto. U radu se analizira postoji li pritisak na pad vrijednosti omjera za veće odmake od 0. Efekt se moze jednostavno analizirati izračunom prosječnog i medijalnog prinosa CROBEX-a kada je vrijednost omjera veća od 0 i manja od 0.
+
+Slika @fig-bar-mean pokazuje razliku u prinosima CROBEX-a u zadnjem tjednu u dva slučaja. Na lijevoj strani oba grafikona je prinos CROBEX-a kada je prinos CROBEX-a u prvom dijelu tjedna bio manji od prinosa CROBIS-a. Desna strana oba grafikona prikazuje prinose CROBEX-a u svim zadnjim tjednima. Grafička analizira indicira postojanje kalendarskog efekta jer su prinosi otprilike 0.25% veći, ako se uvjetuju razlikom izmđu CROBEX-a i CROBIS-a. Efekt je još izraženiji kod medijalnih prinosa, kod kojeg su neuvjetovani prinosi negativni. 
+
+Slika @fig-bar-crobis pokzuje istu analizu za CROBIS. Na X osi je dummy varijabla koja pokazuje uzimaju li se u obzir razlika prinos u prvom dijelu mjesca. Graf indicira slabiji efekt kod CROBEX-a. Na lijevom grafu se vidi da su prosječni prinosi CROBIS-a veći ako se gledaju svi posljednji tjedni, a ne samo on i kod kojih je prinos CROBEX'a u prvom dijelu mjeseca bio pozitivan. Kod medijalnih prinosa je drugačiji efekt, u skladu sa kalendarskim efektom.
+
+```{r}
+#| label: fig-bar-mean
+#| fig-cap: "Prosječni i medijalni prinosi CROBEX-a u zadnjem tjednu"
+
+
+g1 = returns[, .(crobex_return = mean(ret_2_crobex)), 
+        by = .(ratio = factor(ratio > 0, labels = c("DA", "NE")))] |>
+  ggplot(data = _, aes(x = ratio, y = crobex_return)) +
+  geom_bar(stat = "identity") +
+  labs(y = "Prinos CROBEX-a u zadnjem tjednu",
+       x = "Prinos CROBEX-a veći od CROBIS-a") +
+  ggtitle("Prosječni prinos")
+g2 = returns[, .(crobex_return = median(ret_2_crobex)), 
+        by = .(ratio = factor(ratio > 0, labels = c("DA", "NE")))] |>
+  ggplot(data = _, aes(x = ratio, y = crobex_return)) +
+  geom_bar(stat = "identity") +
+  labs(y = "Prinos CROBEX-a u zadnjem tjednu",
+       x = "Prinos CROBEX-a veći od CROBIS-a") +
+  ggtitle("Medijalni prinos")
+g1 + g2 + plot_layout(axes = "collect", axis_titles = "collect", guides = "collect")
+```
+
+```{r}
+#| label: fig-bar-crobis
+#| fig-cap: "Prosječni i medijalni prinosi CROBIS-a u zadnjem tjednu"
+
+
+g1 = returns[, .(crobis_return = mean(ret_2_crobis)), 
+        by = .(ratio = factor(ratio < 0, labels = c("DA", "NE")))] |>
+  ggplot(data = _, aes(x = ratio, y = crobis_return)) +
+  geom_bar(stat = "identity") +
+  labs(y = "Prinos CROBIS-a u zadnjem tjednu",
+       x = "Prinos CROBIS-a veći od CROBEX-a") +
+  ggtitle("Prosječni prinos")
+g2 = returns[, .(crobis_return = median(ret_2_crobis)), 
+        by = .(ratio = factor(ratio < 0, labels = c("DA", "NE")))] |>
+  ggplot(data = _, aes(x = ratio, y = crobis_return)) +
+  geom_bar(stat = "identity") +
+  labs(y = "Prinos CROBIS-a u zadnjem tjednu",
+       x = "Prinos CROBIS-a veći od CROBEX-a") +
+  ggtitle("Medijalni prinos")
+g1 + g2 + plot_layout(axes = "collect", axis_titles = "collect", guides = "collect")
+## Kalendarski efekt - pristup investicijske strategije
+```
+
+## Kalendarski efekt - pristup regresijske analize
+
+Započinjemo s vrlo jednostavnom regresijskom analizom. Zavisna varijabla je višak prinosa CROBEX-a nad CROBIS-om u zadnjem tjednu, a nezavisna varijabla je višak prinosa CROBEX-a nad CROBIS-om u prvom dijelu mjeseca. Očekuje se negativna korelacija nezavisne i zavisne varijable. Ako je CROBEX rastao više u prvom dijelu mjeseca, očekuje se smanjenje viška prinosa u drugom dijelu mjeseca. 
+
+```{r}
+#| label: fig-calendar-reg
+#| fig-cap: "Dijagram raspršenosti razlike prinosa CROBEX-a nad CROBIS-om i jednostavna linerna regresija razlike prinosa u zadnjem tjednu na razliku prinosa u prvom dijelu mjeseca"
+
+outperformance = returns[, .(month, ratio_1 = ratio, ratio_2 = ret_2_crobex - ret_2_crobis)]
+
+ggplot(outperformance, aes(x = ratio_1, y = ratio_2)) +
+    geom_point() +
+    geom_smooth(method = "lm") +
+      labs(
+        x = "First three weeks equity performance",
+        y = "Final week equity performance",
+        title = "End of month reversal of equity performance"
+      )
+```
+
+Slika @fig-calendar-reg prikazuje dijagram raspršenosti razlike prinosa CROBEX-a i CROBIS-a za kraj tjedna na y osi i za prvi dio mjeseca na x osi. Graf prikazuje pozitivan prinosa, što nije u skladu s očekivanjima. Međutim, iz grafičke analie se jasno vidi snažan utjecaj jedne toške na grafu, kod koje je vrlo visok prinos kako na xm tako i na y osi. Kako bi se elminirai utjecaj jednog opažanja, na grafu @fig-calendar-reg-outlier je prikazan isti grafikon, ali bez ovog opažanja. Slika pokazuje oečkivno negativan nagib regresijskog pravca. Slika pokazuje da se u posljednjem tjednu mjeseca događa povratak od viših razlika prinosa prema nižm.
+
+```{r}
+#| label: fig-calendar-reg-outlier
+#| fig-cap: "Dijagram raspršenosti razlike prinosa CROBEX-a nad CROBIS-om i jednostavna linerna regresija razlike prinosa u zadnjem tjednu na razliku prinosa u prvom dijelu mjeseca bez outliera"
+#| 
+ggplot(outperformance[ratio_1 < 0.3], aes(x = ratio_1, y = ratio_2)) +
+    geom_point() +
+    geom_smooth(method = "lm") +
+      labs(
+        x = "First three weeks equity performance",
+        y = "Final week equity performance",
+        title = "End of month reversal of equity performance"
+      )
+```
+
+
+
+```{r}
+out_calendar = lm(ratio_2 ~ ratio_1, data = outperformance[ratio_1 < 0.3])
+summary(out_calendar)
+```
+
+```{r}
+# Load libraries
+library("lmtest")
+library("sandwich")
+
+# Robust t test
+coeftest(out_calendar, vcov = vcovHC(out_calendar, type = "HC5"))
+```
+
+
+
+```{r}
+out_calendar = lm(ret_2_crobex ~ ratio, data = returns[ratio < 0.3])
+summary(out_calendar)
+```
+
+```{r}
+coeftest(out_calendar, vcov = vcovHC(out_calendar, type = "HC5"))
+```
+
+
+## Kalendarski efekt - pristup investicijske strategije 
+
+```{r}
+charts.PerformanceSummary(returns_xts)
+```
+
+```{r}
+charts.PerformanceSummary(returns_big_xts)
+```
+
+```{r}
+strategy_calendar_perf = performance(returns_xts)
+strategy_calendar_big_perf = performance(returns_big_xts)
+setnames(strategy_calendar_perf, c("var", "calendar"))
+crobex_perf = performance(crobex_xts)
+crobis_perf = performance(crobis_xts)
+cbind(strategy_calendar_perf, strategy_calendar_big_perf[, 2], crobex_perf[, 2], crobis_perf[, 2])
+```
+
+
+## Earn interst in cash
+
+```{r}
+# Earn interest on cash
+returns_interest = copy(returns)
+returns_interest[, strategy := ifelse(ret_1_crobex > ret_1_crobis, ret_2_crobis + 0.001, ret_2_crobex + 0.001)]
+returns_interest_xts = as.xts.data.table(returns_interest[, .(zoo::as.Date.yearmon(month), strategy)])
+```
+
+```{r}
+charts.PerformanceSummary(returns_interest_xts)
+```
+
+
+```{r}
+strategy_calendar_perf = performance(returns_interest_xts)
+setnames(strategy_calendar_perf, c("var", "calendar__interest"))
+cbind(strategy_calendar_perf, crobex_perf[, 2], crobis_perf[, 2])
+```
+
+# Kombinirani efekt
+
+```{r}
+combined = threshold_effect[, .(date, strategy, crobex, crobis)]
+combined[, month := data.table::yearmon(date)]
+combined = returns[, .(month, ratio)][combined, on = "month"]
+combined = month_date[, .(date, day_of_month)][combined, on = c("date")]
+combined = na.omit(combined)
+combined[day_of_month > 16, strategy := ifelse(ratio > 0, crobis, crobex)]
+
+```
+
+```{r}
+combined_xts = as.xts.data.table(combined[, .(date, strategy)])
+charts.PerformanceSummary(combined_xts)
+```
+
+```{r}
+strategy_combine_perf = finutils::portfolio_stats(combined_xts)
+setnames(strategy_combine_perf, c("var", "combined"))
+cbind(strategy_combine_perf, strategy_calnedar_perf[, 2], crobex_perf[, 2], crobis_perf[, 2])
+```
+
+
+# Analiza robusnosti
+
+
+
+
+
+## Efekt početkom mjeseca
+
+```{r}
+# Calculate returns 5 day before end of the month and returns last 5 days of the month
+ret_1_ = dt[, .(ret_1 = data.table::last(.SD[, last_value]) / .SD[day_of_month == 6, open_value] - 1),
+           by = .(symbol, month)]
+ret_2_ = dt[, .(ret_2 = .SD[day_of_month == 5, last_value] / .SD[day_of_month == 1, open_value] - 1),
+           by = .(symbol, month)]
+
+# Merge ret_1 and ret_2
+returns_ = merge(ret_1_, ret_2_, by = c("symbol", "month"))
+returns_[, ret_1 := shift(ret_1)]
+returns_ = dcast(returns_, month ~ symbol, value.var = c("ret_1", "ret_2"))
+returns_ = na.omit(returns_)
+
+# Strategy
+returns_[, strategy := ifelse(ret_1_crobex > ret_1_crobis, ret_2_crobis, ret_2_crobex)]
+returns_xts_ = as.xts.data.table(returns_[, .(zoo::as.Date.yearmon(month), strategy)])
+```
+
+```{r}
+charts.PerformanceSummary(returns_xts_)
+```
+```{r}
+
+```
+
+
+
+## End of quarter effect
+
+```{r}
+# # Define datys of month
+# dt = rbind(crobex, crobis)
+# dt[, q := data.table::yearqtr(date)]
+# setorder(dt, symbol, date)
+# q_date = unique(dt[, .(q, date)])
+# setorder(q_date, date)
+# q_date[, day_of_q := 1:.N, by = .(q)]
+# dt = q_date[, .(date, day_of_q)][dt, on = c("date")]
+# dt[, day_of_q := as.factor(day_of_q)]
+# dt[, .N, by = day_of_q][order(day_of_q)]
+# dt[day_of_q == 65, day_of_q := 64]
+# dt[day_of_q == 64, day_of_q := 63]
+# 
+# # Calculate returns 5 day before end of the month and returns last 5 days of the month
+# ret_1 = dt[, .(ret_1 = .SD[day_of_q == 1, open_value] / .SD[day_of_q == 56, last_value] - 1),
+#    by = .(symbol, q)]
+# ret_2 = dt[, .(ret_2 = data.table::last(.SD[, last_value]) / .SD[day_of_q == 57, open_value] - 1),
+#    by = .(symbol, q)]
+# 
+# # Merge ret_1 and ret_2
+# returns = merge(ret_1, ret_2, by = c("symbol", "q"))
+# returns = dcast(returns, q ~ symbol, value.var = c("ret_1", "ret_2"))
+# returns = na.omit(returns)
+# 
+# # Ratio of Crobex and Crobis
+# returns[, ratio := ret_1_crobex - ret_1_crobis]
+# 
+# # Strategy
+# returns[, strategy := ifelse(ret_1_crobex > ret_1_crobis, ret_2_crobis, ret_2_crobex)]
+# returns_xts = as.xts.data.table(returns[, .(zoo::as.Date.yearmon(q), strategy)])
+# 
+# charts.PerformanceSummary(returns_xts)
+```
+
+# Zaključak
+
+Istraživanje ima nekoliko ograničenja. Procjena graničkog efekta rebalansiranja je aproksimacija ponašanja investicijskih fondova. Iako je u regresijsokj analizi efekt signifikantan i nakon dodavanja kontrolnih varijabli, moguće je da postoji drugi uzroci uspješnosti investicijske strategije ili signifikanstnosti parametara. Tačan efekt moguće je procijeniti samo uz podatke o rebalansiranju za sve investicijske fondove. Riječ o alternativnim podacima koji su teško dostupni, ali moguće je proširiti analizu u budućnosti s novim podacima. Kalendarski efekt također može biti rezultat djelovanja drugih varijabli, koje nisu uključene u analizu. 
+
+
+
+
