@@ -1,0 +1,16 @@
+title: Crebs
+author: MislavSag
+version: 1.0.0
+quarto-required: ">=1.5.0"
+contributes:
+  formats:
+    common:
+      toc: true
+      filters:
+        - crebs.lua
+    pdf:
+      template: LaTeX_predlozak_CREBSS_hrvatski.tex
+      keep-tex: true
+    html:
+      css: styles.css
+

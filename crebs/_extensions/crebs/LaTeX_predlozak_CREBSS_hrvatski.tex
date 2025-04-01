@@ -1,0 +1,160 @@
+\documentclass{crebsshr}
+%%%%%%%%% journal  info -- DO NOT CHANGE %%%%%%%%%
+\setcounter{page}{1}
+\setcounter{secnumdepth}{4}
+\renewcommand\thisnumber{x}
+\renewcommand\thisyear {202x}
+\renewcommand\thisvolume{x}
+\renewcommand\datereceived{xxxx xx, 202x}
+\renewcommand\dateaccepted{xxxx xx, 202x}
+\renewcommand\dateavailable{xxxx xx, 202x}
+\renewcommand\doinumber{10.62366/crebss.202x.x.00x}
+\renewcommand\type{XXX XXX}
+\renewcommand\JEL{XXX, XXX}
+%%%%%%%%%  end journal info   %%%%%%%%%
+
+
+
+\begin{document}
+	%===================================================================================================
+	\markboth{Prezime1, Prezime2 \& Prezime3}{Ovdje umetnite kratki naslov}
+
+	\title{Ovdje umetnite naslov ... {\color{red}koncizan i informativan naslov do 15 riječi je prihvatljiv}}
+
+
+
+	\author[Prezime1, Prezime2, Prezime3]{Ime1 Prezime1 \affil{1}\comma\corrauth, \, Ime2 Prezime2 \affil{2} \, i \,   Ime3 Prezime3 \affil{1}}
+	\address{\affilnum{1}\ Sveučilište..., Fakultet ili Odjel..., Adresa1, Zemlja1 \href{mailto:abc@abc.com}{\faEnvelopeO}
+			\newline
+			\affilnum{2}\ Sveučilište..., Fakultet ili Odjel..., Adresa2, Zemlja2}
+
+	\keywords{izraz1, izraz2,... {\color{red}do 5 ključnih riječi (izraza) napisanih malim slovima, poredanih abecedno i odvojenih zarezom}}
+
+	\begin{abstract}
+		{\color{red} Sažetak ne smije biti dulji od 200 riječi, ali ne manji od 150. \\ Sažetak treba ilustrirati sadržaj članka s jasnim ciljevima, metodologijom, rezultatima i doprinosom. \\ Članak se može klasificirati kao (i) izvorni znanstveni rad, (ii) pregledni rad ili (iii) prethodno priopćenje, ovisno o prijedlozima recenzenata.} Izvorni rad usmjeren je na izvještavanje i raspravu o novim rezultatima istraživanja, uključujući nove podatke i nove metode. Pregledni rad sintetizira i analizira postojeću literaturu o određenoj temi, daje opsežan sažetak prethodnih istraživanja i identificira njihove nedostatke. Preliminarno priopćenje je kraće od izvornog rada, ali mu je slično, tj. prikazani su početni rezultati postojećih pristupa primijenjenih na novim podacima i bez opširnih objašnjenja.
+	\end{abstract}
+
+
+	\maketitle
+	\bigskip
+	\noindent
+	%===========================================================================================================================================
+
+	\section{Uvod}
+	{\color{red} Tijelo rukopisa treba imati između 4500 i 6000 riječi (bez sažetka, ključnih riječi i popisa literature). Struktura rada treba slijediti, ali nije ograničena na IMRAD odjeljke: uvod, metode, rezultati i rasprava. Dobrodošli su dodatni odjeljci kao što su: pregled literature (teorijska pozadina) i zaključak}. \\ Izbjegavajte pododjeljke i dodatke (priloge) kad god je to moguće. {\color{red} Fusnote nisu dopuštene.} \\ Uvodni dio treba odražavati motivaciju i svrhu rada.\\ {\color{red}Za citiranje koristite APA citatnice u Harvardskom stilu (autor, godina) pomoću naredbi \verb=\cite{}= i \verb=\citep{}= da biste se referencirali na konkretnu bibilografsku jedinicu \verb=\bibitem{}= s popisa literature, inkorporiranom u ovom predlošku \verb={thebibliography}{99}=.} Primjerice, autori \cite{shoukralla:23} su koristili tehniku interpolacije, ... ili Bayesov pristup je dokumentiran u literaturi \citep{yang:19}.
+
+	%===========================================================================================================================================
+	\section{Naslov odjeljka}
+	{\color{red} Ako niste upoznati s {\LaTeX}--om, preporuča se da inicijalni anonimni rukopis (bez imena autora, afilijacija i adresa) bude napisan u Wordu prema istim smjernicama kao u ovom predlošku i da se podnese kao jedna PDF ili Word datoteka pomoću sustava \href{https://hrcak.srce.hr/ojs/index.php/crebss/about/submissions}{OJS}. Konačnu verziju prihvaćenog rada za objavljivanje treba dostaviti u {\LaTeX}--u, tj. potrebno je u sustav učitati tex datoteku (ovaj predložak) s popratnom cls datotekom \verb=crebsshr=  i zasebnim slikama (u png, jpg ili drugim formatima), ako postoje.} Opsežan pregled predmeta istraživanja (potkrijepljen recentnom literaturom) treba pružiti dokaze i/ili protudokaze slične autorovim idejama i rezultatima. Ciljevi rada i metodologija trebaju biti jasni. Znanstveni doprinos istraživanja treba biti sveobuhvatno elaboriran jer časopis CREBSS objavljuje samo znanstvene radove. Radovi s novim primjenama u praksi su dobrodošli.
+
+	\begin{equation} \label{eq:eq1}
+	S^2=\dfrac{\displaystyle\sum_{i=1}^{n}(x_i-\bar{x})^2}{n-1}
+	\end{equation}
+
+{\color{red} Jednadžbe (formule) trebaju biti numerirane i označene pomoću naredbe \verb=\label{}= jer se koristi \verb=\eqref{}= naredba za pozivanje na njih u tekstu pomoću poveznice.} Primjerice, {\color{blue} jednadžba} \eqref{eq:eq1} predstavlja varijancu uzorka. Za duge jednadžbe koristite \verb=split= ili \verb=aligned= pod--okruženje.
+
+	\begin{equation} \label{eq:eq2}
+	\begin{aligned}
+	m(\textbf{x})&=\mu + \textbf{r}(\textbf{x})^\top \textbf{R}^{-1}(\textbf{y} - \mu \textbf{1}), \\
+	s^2(\textbf{x})&=\sigma^2 \left(1 - \textbf{r}(\textbf{x})^\top \textbf{R}^{-1}\textbf{r}(\textbf{x}) \right).
+	\end{aligned}
+	\end{equation}
+
+
+
+	%%==========================================================================================================================================
+	\section{Naslov odjeljka}
+{\color{red}Natpisi (naslovi) su pozicionirani iznad tablica, a ispod slika.} Tablice i slike trebaju također biti označene unutar njihovog okruženja pomoću naredbe \verb=\label{}= jer se koriste poveznice u boji kada upućujemo na tablice i slike u tekstu naredbom \verb=\ref{}=. Primjerice, možete se pozvati na {\color{blue} Tablicu} \ref{tab:tab1}. Isto tako, dva grafikona prikazana su na {\color{blue} Slici} \ref{fig:fig2}. Upotrijebite opcije \verb=scale= ili \verb=\textwidth= za podešavanje veličine slike.
+
+
+		\begin{figure}[H]
+		\centering
+			\includegraphics[scale=0.22]{figure.jpg}
+			\caption{Hrvatska revija ekonomske, poslovne i društvene statistike}
+			\label{fig:fig1}
+		\end{figure}
+
+	\medskip
+	\begin{table}[H]
+	\centering
+	\caption{Numerički rezultati \dots}
+	\label{tab:tab1}
+	\small
+	\begin{tabular}{l|lllll} \toprule
+		& Model 1   & Model 2  & Mode 3  & Model 4  & Model 5 \\ \hline \hline
+		&&&&& \\ [-1em]
+		Varijabla 1 &       & 5.169$^{*}$ & 1.022 & 2.603$^{*}$ & $-$0.929$^{***}$  \\
+		&       & (0.010)    & (0.370)    & (0.087)    & ($-$6.346)    \\ &&&&& \\ [-1em]
+	Varijabla 2  & 6.703$^{**}$ &       & 3.167$^{*}$ & 2.264 &         \\
+		& (0.000)   &       & (0.059)  & (0.141)    &         \\ &&&&& \\ [-1em]
+		Varijabla 3 & 0.004 & 6.016$^{**}$ &       & 9.347$^{***}$ & $-$0.944$^{***}$  \\
+		&    (0.949)   &   (0.089)    &       & (0.000)  &  ($-$8.466)      \\ &&&&& \\ [-1em]
+		Varijabla 4 & 0.073 & 3.811$^{*}$ & 9.807$^{***}$ &       & $-$0.613$^{***}$  \\
+		& (0.789)    & (0.057)    & (0.000)    &       &  ($-$5.751)     \\ \bottomrule
+	\end{tabular} \\
+	\vspace{1ex} \footnotesize {Bilješka: $^{*} p < 0.1$, $^{**} p < 0.05$, $^{***} p < 0.01$ označavaju razine značajnosti od 10\%, 5\% i 1\%; standardne pogreške u zagradama}
+\end{table}
+
+	\begin{figure}[H]
+		\centering
+		\begin{subfigure}{0.25\textwidth}
+			\includegraphics[width=\textwidth]{figure.jpg}
+			\caption{Prvi grafikon}
+		\end{subfigure}~~~~\begin{subfigure}{0.25\textwidth}
+			\includegraphics[width=\textwidth]{figure.jpg}
+			\caption{Drugi grafikon}
+		\end{subfigure}
+	\caption{Hrvatska revija ekonomske, poslovne i društvene statistike}
+	\label{fig:fig2}
+	\end{figure}
+
+
+	%========================================================================================================================================================
+	\section{Zaključak}
+	Zaključak treba rezimirati rezultate istraživanja i njihove implikacije. Treba biti razumljivo što je novo (po čemu se trenutno istraživanje razlikuje od postojećih studija sa sličnim predmetom istraživanja) i kome su rezultati istraživanja relevantni. Otvorena pitanja i prijedlozi za buduća istraživanja su dobrodošli.
+	%==========================================================================================================================================
+	\vspace{-0.1cm}
+	\subsubsection*{Priznanje} Autori trebaju istaknuti financijsku potporu istraživanja ili se zahvaliti određenim osobama i institucijama na pomoći u izradi rada ...{\color{red} ako je primjenjivo}
+
+	\vspace{-0.1cm}
+	\subsubsection*{Atribucija} Ako je rad istih autora neobjavljen, ali je javno dostupan, autori trebaju navesti digitalni izvor ili odredišni repozitorij...{\color{red} ako postoji}
+	\medskip
+
+	\newpage
+
+	\noindent {\color{red} Provjerite jesu li sve reference citirane u tekstu i jesu li svi citati popraćeni bibliografskim jedinicama u popisu literature. Broj referenci ograničen je na 35. Sve reference validiraju se kroz CrossRef bazu i registrirane DOI brojeve. Za objavljene radove bez DOI brojeva i internetske izvore treba navesti URL adresu veze zajedno s datumom pristupa. Neobjavljeni radovi, iako javno dostupni, nisu dobrodošli, jer nisu prošli recenzentski postupak (osim atribuiranog izvora iz kojeg trenutni rad potječe).}
+
+	\begin{thebibliography}{99}
+
+		\bibitem[Shoukralla i Ahmed(2023)]{shoukralla:23}
+		Shoukralla, E. S. \& Ahmed, B. M. (2004). Barycentric Lagrange Interpolation Methods for Evaluating Singular Integrals. \emph{Alexandria Engineering Journal}, 69:243--253. \href{https://doi.org/10.1016/j.aej.2022.12.005}{doi: 10.1016/j.aej.2022.12.005}
+
+		\bibitem[Yang i sur.(2019)]{yang:19}
+		Yang, K., Emmerich, M., Deutz, A. \& Back, T. (2019). Multi--Objective Bayesian Global Optimization using expected hypervolume improvement gradient. \emph{Swarm and Evolutionary Computation}, 44(1):945--956. \href{https://doi.org/10.1016/j.swevo.2018.10.007}{doi: 10.1016/j.swevo.2018.10.007}
+
+
+	\end{thebibliography}
+
+	\bigskip
+	\bigskip
+
+\noindent Ako se članak objavljuje na hrvatskom jeziku tada nakon popisa literature članak mora sadržavati naslov, sažetak i ključne riječi na engleskom jeziku.
+
+\begin{center}
+	\large  \bf Insert your title here ... {\color{red}concise and informative title up to 15 words is acceptable}
+\end{center}
+
+\begin{minipage}[b]{\dimexpr0.32\textwidth-1\fboxrule-0.5\fboxsep\relax}
+	ARTICLE TYPE \newline
+	\rm\small \textbf{XXX XXX} \newline \newline \newline
+	ARTICLE INFO \newline
+	Received: xxxx xx, 202x \newline Accepted: xxxx xx, 202x \newline DOI: \doinumber \newline JEL: \JEL  \newline \newline \newline
+\end{minipage}%
+\begin{minipage}[b]{0.68\textwidth}
+	\vspace{0.2cm}  \textbf{SUMMARY} \\
+		{\color{red} Summary should be no longer than 200 words, but not less than 150. \\ It should illustrate the content of the article with clear objectives, methodology, findings and contribution. \\ Articles can be classified as (i) original scientific paper, (ii) review paper or (iii) preliminary communication, depending on reviewers suggestions.} Original paper is focused on reporting and discussing new research findings, including new data and new methods. Review paper synthesizes and analyzes existing literature on a specific topic, provides comperhensive summary of previous findings and identifies their gaps. Preliminary communication is shorter than original paper, but similar to it, i.e. initial results of existing approcahes applied to new data, without the extensive details are presented. \smallskip \\
+	\textbf{KEYWORDS} \\ {\it keyword1, keyword2,... {\color{red}up to 5 lowercase keywords ordered alphabetically and separated by comma}}
+
+\end{minipage}
+
+\end{document}

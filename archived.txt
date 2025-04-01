@@ -1,0 +1,83 @@
+# Ratio of Crobex and Crobis
+ratio = dcast(dt, date ~ symbol, value.var = "last_value")
+ratio = na.omit(ratio)
+ratio[, ratio := crobex / crobis]
+ratio[, ratio_ema_5 := TTR::EMA(ratio, 10)]
+ratio[, ratio_ema_50 := TTR::EMA(ratio, 20)]
+ratio[, ratio_scaled := (ratio_ema_50 - ratio_ema_5) / ratio_ema_50]
+ratio[, ratio_scaled := roll_scale(ratio_scaled, width = length(ratio), min_obs = 22)]
+
+
+
+ggplot(ratio[date %between% c(as.Date("2020-01-01"), as.Date("2021-01-01"))], aes(x = date)) +
+  geom_line(aes(y = ratio), color = "black") +
+  geom_line(aes(y = ratio_ema_5, color = "red")) +
+  geom_line(aes(y = ratio_ema_50, color = "blue"))
+
+
+
+# 2) Spread
+# ratio[, ratio := log(spy) - log(tlt)]
+# ratio[, ratio_scaled := roll_scale(ratio, width = 22)]
+# ratio = na.omit(ratio)
+
+
+# Z score of SPY and bon ratios
+threshold_effect = dt[, .(symbol, date, last_value)]
+threshold_effect[, returns := last_value / shift(last_value) - 1, by = symbol]
+threshold_effect = na.omit(threshold_effect)
+threshold_effect = dcast(threshold_effect, date ~ symbol, value.var = "returns")
+threshold_effect = na.omit(threshold_effect)
+threshold_effect = ratio[, .(date, ratio_scaled)][threshold_effect, on = "date"]
+threshold_effect = na.omit(threshold_effect)
+
+# Strategy
+signals = vector("numeric", length = nrow(threshold_effect))
+ratios = threshold_effect[, ratio_scaled]
+threshold = 0.5
+for (i in seq_along(signals)) {
+  if (i == 1) {
+    signals[i] = 0
+  } else if (ratios[i-1] >= threshold & signals[i - 1] == 0) {
+    signals[i] = 1
+  } else if (signals[i - 1] == 1 & ratios[i-1] >= 0) {
+    signals[i] = 1
+  } else if (ratios[i-1] <= -threshold & signals[i - 1] == 0) {
+   signals[i] = -1
+  } else if (signals[i - 1] == -1 & ratios[i-1] <= 0) {
+   signals[i] = -1
+  } else {
+    signals[i] = 0
+  }
+}
+
+# Strategy
+threshold_effect[, strategy := fifelse(signals == 1, crobis, 0)]
+threshold_effect[, strategy := fifelse(signals == -1, crobex, strategy)]
+threshold_effect_xts = as.xts.data.table(threshold_effect[, .(date, strategy)])
+charts.PerformanceSummary(threshold_effect_xts)
+
+
+# Kombinirani efekt
+
+```{r}
+combined = threshold_effect[, .(date, strategy, crobex, crobis)]
+combined[, month := data.table::yearmon(date)]
+combined = returns[, .(month, ratio)][combined, on = "month"]
+combined = month_date[, .(date, day_of_month)][combined, on = c("date")]
+combined = na.omit(combined)
+combined[day_of_month > 16, strategy := ifelse(ratio > 0, crobis, crobex)]
+
+```
+
+```{r}
+combined_xts = as.xts.data.table(combined[, .(date, strategy)])
+charts.PerformanceSummary(combined_xts)
+```
+
+```{r}
+# strategy_combine_perf = finutils::portfolio_stats(combined_xts)
+# setnames(strategy_combine_perf, c("var", "combined"))
+# cbind(strategy_combine_perf, strategy_calnedar_perf[, 2], performance(crobex_xts)[, 2], performance(crobis_xts)[, 2])
+```
+

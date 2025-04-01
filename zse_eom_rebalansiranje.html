@@ -53,7 +53,40 @@ div.csl-indent {
 <script src="zse_eom_rebalansiranje_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="zse_eom_rebalansiranje_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="zse_eom_rebalansiranje_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="zse_eom_rebalansiranje_files/libs/tabwid-1.1.3/tabwid.css" rel="stylesheet">
 
+<script src="zse_eom_rebalansiranje_files/libs/tabwid-1.1.3/tabwid.js"></script>
+
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -84,10 +117,11 @@ div.csl-indent {
 
 <section id="uvod" class="level1">
 <h1>Uvod</h1>
-<p>Investicijski fondovi u Republici Hrvatskoj, koji ulažu na domaće tržište kapitala, često održavaju fiksne udjele dionica i obveznica u svom portfoliu. To se posebno odnosi na mirovinske fondove, koji imaju i zakonska ograničenja ulaganja u pojedini tip imovinske klase (dionice i obveznice). Ako tijekom određenog razodblja jedna klasa imovine raste u relativnom omjeru u odnosu na drugu klasu imovine, fondovi moraju prodavati imovinsku klasu koja je ostvarila bolje performanse i kupovati klasu imovine koja je ostvarila lošije performanse. Cilj je dosegnuti unaprijed utvrđene pondere u portfoliu. Fondovi dakle moraju kupovati gubitnike i provadati dobitnike, što može imati utjecaj agregatna kretanja dioničkih i obvezničkih tržišta u Republici Hrvatskoj. Rad upravo analizira mogući utjecaj rebalansiranja mirovinskih i drugi fondova na agregatnja kretanja dioničkog i obvezničkog tržišta u RH. Dioničko tržište reprezentira kretanje CROBEX indeksa, a kretanje obvezničkog tržišta kreanje CROBIS-a.</p>
-<p>Rebalansirnaje može uzrokovati velike transakcije troškove<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> za fondove.</p>
-<p>Politika rebalansiranj investicijskih fondova, može se provoditi prema dva pravila: kalendarsko pravilo i granično pravilo <span class="citation" data-cites="Doe2025">Doe (<a href="#ref-Doe2025" role="doc-biblioref">2025</a>)</span>. Prema ganičnom pravilu, fondovi provode banalsiranje kada udio određene imovinske klase prijeđe određenu, unaprijed utvrđenu granicu. Dopušta se fluktuacija unutar tih utvrđenih granica. Ideja je da se smanje transakcijski troškovi zbog (pre)čestog trgovanja. Prema kalendarskom pravilu, fondovi provode rebalansiranje u jendkaim vremenskim intervalima. Najčešće je mjesčno rebalansiranje, iako neki fodnovi mogu koristiti kvartalno ili dnevno rebalansiranje. U ovom radu se pretpostavlja da se rebalansiranje radi na mjesečnoj razini, krajem mjeseca. Ako postoji znatno rebalansiranje na kraju mjeseca, očekuje se rast prinosa imovine s relativno slabijim performansama u prvom dijelu mjeseca i obrnuto. Razlog za mjesečno rebalansiranje može biti potreba za novčanim tokovima na kraju mjeseca <span class="citation" data-cites="Etula2020">Etula et al. (<a href="#ref-Etula2020" role="doc-biblioref">2020</a>)</span>.</p>
-<p>U ovom radu se koristi vrlo jednostavno pravilo, prema kojem se pretpostavlja da se rebalansiranje radi krajem mjeseca. Da bi se utvrdilo točno vrijeme rebalansiranje, nužno je raspolaganje dnevnim podacima o rebalansiranju od investicijskih fondova. Takvi podaci nisu javno dostupni pa se pretpostavlja mjesečno balansiranje koje je najčešći oblik rebalansiranja.</p>
+<p>Domaći i inozemni investicijski fondovi često održavaju fiksne udjele dionica i obveznica u svom portfoliu. To se posebno odnosi na mirovinske i državne fondove, koji ciljaju određenu strukturu portfolia, poput poznatog 60 - 40 omjera (60% dionice, 40% obveynice). Ovi fondovi često imaju i zakonska ograničenja ulaganja u pojedini tip imovinske klase (dionice i obveznice)<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. Ako tijekom određenog razodblja jedna klasa imovine raste u relativnom omjeru u odnosu na drugu klasu imovine, fondovi moraju prodavati imovinsku klasu koja je ostvarila bolje performanse i kupovati klasu imovine koja je ostvarila lošije performanse. Cilj je dosegnuti unaprijed utvrđene pondere u portfoliu. Fondovi dakle moraju kupovati gubitnike i provadati dobitnike, što može imati utjecaj agregatna kretanja dioničkih i obvezničkih tržišta. Rad upravo analizira mogući utjecaj rebalansiranja mirovinskih i drugi fondova na agregatnja kretanja dioničkog i obvezničkog tržišta u RH. Dioničko tržište reprezentira kretanje CROBEX indeksa, a kretanje obvezničkog tržišta kreanje CROBIS-a.</p>
+<p>Efekt rebalansiranja<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<p>Rebalansirnaje može uzrokovati velike transakcije troškove<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> za fondove.</p>
+<p>Politika rebalansiranj investicijskih fondova, može se provoditi prema dva pravila: kalendarsko pravilo i granično pravilo <span class="citation" data-cites="Doe2025">Doe (<a href="#ref-Doe2025" role="doc-biblioref">2025</a>)</span>. Prema ganičnom pravilu, fondovi provode balansiranje kada udio određene imovinske klase prijeđe određenu, unaprijed utvrđenu granicu. Dopušta se fluktuacija unutar tih utvrđenih granica. Ideja je da se smanje transakcijski troškovi zbog (pre)čestog trgovanja. Prema kalendarskom pravilu, fondovi provode rebalansiranje u jednakim vremenskim intervalima. Najčešće je mjesčno rebalansiranje, iako neki fodnovi mogu koristiti kvartalno ili dnevno rebalansiranje. U ovom radu se pretpostavlja da se rebalansiranje radi na mjesečnoj razini, krajem mjeseca. Ako postoji znatno rebalansiranje na kraju mjeseca, očekuje se rast prinosa imovine s relativno slabijim performansama u prvom dijelu mjeseca i obrnuto. Razlog za mjesečno rebalansiranje može biti potreba za novčanim tokovima na kraju mjeseca <span class="citation" data-cites="Etula2020">Etula et al. (<a href="#ref-Etula2020" role="doc-biblioref">2020</a>)</span>. Da bi se utvrdilo točno vrijeme rebalansiranje, nužno je raspolaganje dnevnim podacima o rebalansiranju od investicijskih fondova. Takvi podaci nisu javno dostupni pa se pretpostavlja mjesečno balansiranje koje je najčešći oblik rebalansiranja.</p>
+<p>Metodološki, utjecaj graničnog i kalendarskog rebalansiranja analiyira se pomoću tri pristupa. Prvo se provodi deskrištivna analiza kako bi se bi utvrdile neuvjetovane razlike u prinosim između vremena rebalansiranja i ostalih vremena. Potom se provodi regresijska analiza koja isputuje statistički odnos između prinosal. Na kraju se provodi investicijski pristup u kojem se utvrđuju ekonomski efekti rebalansiranja. Ispituje profitabilnost investicijske strategije koja kupuje CROBEX kada je relativno podcjenjen u odnosu na dinamiku CROBIS-a, te kupnju CROBIS-a u obrnutom slučaju.</p>
 <p>U analizi robusnosti testira se osjetljivost rezultata na 3 promjene u analizi. Prvo, procjenjujemo efekt rebalansiranja na početku mjesca umjesto na kraju mjeseca. Prvo se izračunava prinos CROBEX-a i CROBIS-a u posljednjih 15-ak trgovinskih dana u mjesecu, te se potom na početku sljedeček mjeseca kupuje imovina koja je ostvarila relativno lošiji rezultat. Rezultati pokazuju da ovakva strategija ostvaruje znatno lošije rezultate od bazične strategije koja kupuje relativno podcjenjenu imovinu 5 dana prije kraja mjeseca.</p>
 <p>Drugi dio analize robusnosti analizira utjecaj pomaka u broju dana od kraja mjeseca. Utvrđuje se utjecaj na rezultat s obzirom na pomak varijable od 2 do 10 dana od kraja mjeseca.</p>
 <p>Treći dio analize robusnosti analizira jakost efekta kroz vrijeme. moguće je da efekt gubi na snazi jer investitori ugađuju promjene u očekivanja. Zato testiramo prinose strategija za svaku godinu promatranja.</p>
@@ -95,10 +129,13 @@ div.csl-indent {
 <section id="pregled-literature" class="level1">
 <h1>Pregled literature</h1>
 <p>Rani doprinos dan je u <span class="citation" data-cites="PeroldSharpe1988">Perold and Sharpe (<a href="#ref-PeroldSharpe1988" role="doc-biblioref">1988</a>)</span>. Autori su pokazali</p>
+<p><span class="citation" data-cites="PengWang2024">Peng and Wang (<a href="#ref-PengWang2024" role="doc-biblioref">2024</a>)</span> uvode koncept faktorskog rebalansiranja, koji istražuje kako odluke o rebalansiranju portfelja utječu na dinamiku povrata faktora. Studija pokazuje da uzajamni fonodovi imaju konstantnu potražnju za faktorskom izloženošću (faktor veličine, vrijednosti i slično), te da promjene u faktorskoj izloženosti dovodi do pritisaka prodaje određene dionice, kako bi se faktorska izloženost vratila u ravnotežu.</p>
+<p><span class="citation" data-cites="ParkerSchoarSun2022">Parker, Schoar, and Sun (<a href="#ref-ParkerSchoarSun2022" role="doc-biblioref">2022</a>)</span> pokazuju kako rebalansiranja TDF fondova (eng. Target Date Funds)[^4] djeluju kontrarisjki, prodajući dionice nakon razdoblja snažnih tržišnih performansi i kupnjom nakon pada tržišta, djelujući suprotno dominantnim tržišnim trendovima. Politikom rebalansiranja utječu i na dinamiku prostornih (eng. cross-section) prinosa dionica.</p>
+<p><span class="citation" data-cites="DundjekKokotec2021">Đunđek Kokotec, Orsag, and Klačmer Čalopa (<a href="#ref-DundjekKokotec2021" role="doc-biblioref">2021</a>)</span> su istrađivali utjecaj vlasništva institucionalnih investitora na uspješnost i financijsku poziciju hrvatskih poduzeća. Rezultati pokazuju statistički značajan utjecaj vlasništva institucionalnih investitora na poslovnu uspješnost i financijsko zdravlje poduzeća.</p>
+<p>[^4] TDF fondovi automatski prilagođavaju alokaciju imovine na temelju starosti investitora, postupno smanjujući izloženost dionicama u korist obveznica kako se približava mirovina. Ovaj dizajn omogućava ulagačima koji nemaju isksutva u aktivnom upravljanju portfeljem ostvarivanje primjerenog odnosa rizika i prinosa.</p>
 </section>
 <section id="podaci" class="level1">
 <h1>Podaci</h1>
-<p>U radu se koriste dvije vremenske serije: 1) CROBEX koji odražava agregatnu dunamiku dioničkog tržišta u RH i CROBIS, koji odražava dinamiku obvezničkog tržištau RH. Podaci su preuzeti sa službenih stranica Zagrebačke burze (ZSE). Podaci uključuju OHLC podatke od 01.02.2010 do 05.02.2025. Vremenski nizovi CROBEX-a i CROBIS-a prikazani su na slici <a href="#fig-series" class="quarto-xref">Figure&nbsp;1</a>.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-series" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -113,124 +150,684 @@ Figure&nbsp;1: Dinamika CROBEX-a i CROBIS-a
 </div>
 </div>
 </div>
+<p>U radu se koriste dva vremenska niza: 1) CROBEX koji odražava agregatnu dinamiku dioničkog tržišta u RH 2) CROBIS, koji odražava dinamiku obvezničkog tržištau RH. Izvor podataka je Zagrebačka burza. Postoje samo tri kolone: simbol (CROBEX ili CROBIS), datum i posljednja vrijednost indeksa na kraju dana. RAspon podataka je od 01.09.2003 do 07.03.2025. Vremenski nizovi CROBEX-a i CROBIS-a prikazani su na slici <a href="#fig-series" class="quarto-xref">Figure&nbsp;1</a>. Gornja slika pokazuje snažan rast dionička tržišta u godinama koje su prethodile Velikoj Recesiji, te snažan pad 2008 i 2009 godine. U sljede’ih 25 godina nije dosegao najviše razine iz prethodnih razdoblja. Donja slika pokazuje dosta drugačiju dinamiku obvezničkog tržišta. Obveznički indeks je padao u radoblju prije Velike Recesije, da bi potom, uslijed hlobalnog smanjenja kamatnih stopa generirao pozitivne prinose sve do razdoblja COVID-a.</p>
 <div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>    day_of_month     N
-          &lt;fctr&gt; &lt;int&gt;
- 1:            1   361
- 2:            2   362
- 3:            3   362
- 4:            4   360
- 5:            5   360
- 6:            6   360
- 7:            7   360
- 8:            8   360
- 9:            9   360
-10:           10   360
-11:           11   360
-12:           12   360
-13:           13   360
-14:           14   360
-15:           15   360
-16:           16   360
-17:           17   360
-18:           18   358
-19:           19   346
-20:           20   316
-21:           21   212
-22:           22    98
-23:           23    28
-    day_of_month     N</code></pre>
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-9e9d7024{}.cl-9e9191aa{font-family:'Arial';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-9e9191be{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-9e96046a{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-9e96047e{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-9e962a62{width:0.769in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-9e962a6c{width:0.668in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-9e962a76{width:0.752in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-9e962a77{width:0.786in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-9e962a78{width:0.718in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-9e962a80{width:0.769in;background-color:transparent;vertical-align: middle;border-bottom: 0.75pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-9e962a81{width:0.668in;background-color:transparent;vertical-align: middle;border-bottom: 0.75pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-9e962a8a{width:0.752in;background-color:transparent;vertical-align: middle;border-bottom: 0.75pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-9e962a8b{width:0.786in;background-color:transparent;vertical-align: middle;border-bottom: 0.75pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-9e962a8c{width:0.718in;background-color:transparent;vertical-align: middle;border-bottom: 0.75pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-9e962a94{width:0.769in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0.75pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-9e962a95{width:0.668in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0.75pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-9e962a96{width:0.752in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0.75pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-9e962a9e{width:0.786in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0.75pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-9e962a9f{width:0.718in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0.75pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-9e9d7024"><thead><tr style="overflow-wrap:break-word;"><th class="cl-9e962a62"><p class="cl-9e96046a"><span class="cl-9e9191aa">symbol</span></p></th><th class="cl-9e962a6c"><p class="cl-9e96047e"><span class="cl-9e9191aa">N</span></p></th><th class="cl-9e962a76"><p class="cl-9e96047e"><span class="cl-9e9191aa">Mean</span></p></th><th class="cl-9e962a77"><p class="cl-9e96047e"><span class="cl-9e9191aa">Median</span></p></th><th class="cl-9e962a76"><p class="cl-9e96047e"><span class="cl-9e9191aa">SD</span></p></th><th class="cl-9e962a78"><p class="cl-9e96047e"><span class="cl-9e9191aa">Min</span></p></th><th class="cl-9e962a76"><p class="cl-9e96047e"><span class="cl-9e9191aa">Max</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-9e962a80"><p class="cl-9e96046a"><span class="cl-9e9191be">crobex</span></p></td><td class="cl-9e962a81"><p class="cl-9e96047e"><span class="cl-9e9191be">5,335</span></p></td><td class="cl-9e962a8a"><p class="cl-9e96047e"><span class="cl-9e9191be">0.0003</span></p></td><td class="cl-9e962a8b"><p class="cl-9e96047e"><span class="cl-9e9191be">0.0003</span></p></td><td class="cl-9e962a8a"><p class="cl-9e96047e"><span class="cl-9e9191be">0.0104</span></p></td><td class="cl-9e962a8c"><p class="cl-9e96047e"><span class="cl-9e9191be">-0.102</span></p></td><td class="cl-9e962a8a"><p class="cl-9e96047e"><span class="cl-9e9191be">0.1593</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-9e962a94"><p class="cl-9e96046a"><span class="cl-9e9191be">crobis</span></p></td><td class="cl-9e962a95"><p class="cl-9e96047e"><span class="cl-9e9191be">5,335</span></p></td><td class="cl-9e962a96"><p class="cl-9e96047e"><span class="cl-9e9191be">0.0000</span></p></td><td class="cl-9e962a9e"><p class="cl-9e96047e"><span class="cl-9e9191be">0.0000</span></p></td><td class="cl-9e962a96"><p class="cl-9e96047e"><span class="cl-9e9191be">0.0017</span></p></td><td class="cl-9e962a9f"><p class="cl-9e96047e"><span class="cl-9e9191be">-0.021</span></p></td><td class="cl-9e962a96"><p class="cl-9e96047e"><span class="cl-9e9191be">0.0212</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+<p>Tablica <span class="citation" data-cites="tab-summary">(<a href="#ref-tab-summary" role="doc-biblioref"><strong>tab-summary?</strong></a>)</span> prikazuje sažetak statistika za CROBEX i CROBIS. U tablici se nalaze broj promatranja, prosječna vrijednost, standardna devijacija, minimalna i maksimalna vrijednost dnevnih prinosa. CROBEX pokazuje veću standardnu devijaciju i veći prinos, u skladu s financijskom teorijom, prema kojoj dionice zbog rizične premije imaju veće prinose i veći rizik.</p>
+<p>U tabilci <span class="citation" data-cites="tab-dep">(<a href="#ref-tab-dep" role="doc-biblioref"><strong>tab-dep?</strong></a>)</span> su prikazane mjere povezanosti između CROBEX-a i CROBIS-a. Sve tri korelacijske mjere su (Pearson, Spearman, Kendall) iznimno niske, što upućuje na vrlo slabu međuovisnost promatranih vremenskih nizova. Pearsonova korelacija odražava linearnu vezu i vrlo je blizu nule, Spearmanova se odnosi na monotonu (rang) povezanost i jednako tako ne pokazuje značajnije slaganje trendova, dok Kendallova tau, koja mjeri omjer konkordantnih i diskordantnih parova, također ukazuje na neznatnu ovisnost. Korelacije upućuju na to da se CROBEX i CROBIS kreću neovisno jedan o drugom. Ovakva dinamika indicira veću potencijalnu profitabilnost investicijske strategije koja kupuje podcjenjenu imovinu, a prodaje precijenjenu imovinu.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-9efa8520{}.cl-9eefe46c{font-family:'Arial';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-9eefe476{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-9ef3e47c{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-9ef403da{width:0.854in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-9ef403e4{width:0.99in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-9ef403ee{width:0.795in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-9ef403ef{width:0.854in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-9ef403f0{width:0.99in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-9ef403f8{width:0.795in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-9efa8520"><thead><tr style="overflow-wrap:break-word;"><th class="cl-9ef403da"><p class="cl-9ef3e47c"><span class="cl-9eefe46c">Pearson</span></p></th><th class="cl-9ef403e4"><p class="cl-9ef3e47c"><span class="cl-9eefe46c">Spearman</span></p></th><th class="cl-9ef403ee"><p class="cl-9ef3e47c"><span class="cl-9eefe46c">Kendall</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-9ef403ef"><p class="cl-9ef3e47c"><span class="cl-9eefe476">0.0283</span></p></td><td class="cl-9ef403f0"><p class="cl-9ef3e47c"><span class="cl-9eefe476">0.0186</span></p></td><td class="cl-9ef403f8"><p class="cl-9ef3e47c"><span class="cl-9eefe476">0.0125</span></p></td></tr></tbody></table></div>
 </div>
 </div>
 </section>
 <section id="metodologija" class="level1">
 <h1>Metodologija</h1>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="zse_eom_rebalansiranje_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Regresijska jednadžba za procjenu kalendarskog efekta ima oblik:</p>
+<p><span class="math display">\[Ret_{e} = \beta_0 + \beta_1 Ret_{b} + \delta' X_t + e_t\]</span></p>
+<p>gdje je <span class="math inline">\(Ret_{e}\)</span> razlika prinosa CROBEX-a i CROBIS-a zadnjih 5 dana u mjesecu, a <span class="math inline">\(Ret_{b}\)</span> razlika prinosa CROBEX-a i CROBIS-a prvih 15 dana u mjesecu. Koeficijent <span class="math inline">\(\beta_1\)</span> mjeri utjecaj prinosa prvih 15 dana u mjesecu na prinose zadnjih 5 dana u mjesecu. Ako je <span class="math inline">\(\beta_1\)</span> statistički značajan i negativan, to ukazuje na postojanje kalendarskog efekta. MAtrics <span class="math inline">\(X_t\)</span> sadrži kontrolne varijable, poput momentum faktora, koji mogu utjecati na dinamiku prinosa. U radu se za kontrolne varijable koriste mjesečni i godišnji jednostavni momentumi.</p>
 </section>
 <section id="rezultati" class="level1">
 <h1>Rezultati</h1>
+<section id="granični-efekt---deskriptivna-analiza" class="level2">
+<h2 class="anchored" data-anchor-id="granični-efekt---deskriptivna-analiza">Granični efekt - deskriptivna analiza</h2>
+</section>
+<section id="granični-efekt---regresijska-analiza" class="level2">
+<h2 class="anchored" data-anchor-id="granični-efekt---regresijska-analiza">Granični efekt - regresijska analiza</h2>
+</section>
+<section id="granični-efekt---pristup-investicijske-strategije" class="level2">
+<h2 class="anchored" data-anchor-id="granični-efekt---pristup-investicijske-strategije">Granični efekt - pristup investicijske strategije</h2>
 <div class="cell">
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="zse_eom_rebalansiranje_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="zse_eom_rebalansiranje_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="zse_eom_rebalansiranje_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="zse_eom_rebalansiranje_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="zse_eom_rebalansiranje_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>                               var    strategy      crobex       crobis
-                            &lt;char&gt;       &lt;num&gt;       &lt;num&gt;        &lt;num&gt;
-1: Annualized Sharpe Ratio (Rf=0%)  0.52938246  0.27745447  0.054804686
-2:               Annualized Return  0.01695868  0.03142456  0.001360716
-3:                              dd -0.04791197 -0.41340848 -0.201134923</code></pre>
-</div>
-</div>
-<section id="earn-interst-in-cash" class="level2">
-<h2 class="anchored" data-anchor-id="earn-interst-in-cash">Earn interst in cash</h2>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="zse_eom_rebalansiranje_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>                               var    strategy      crobex       crobis
-                            &lt;char&gt;       &lt;num&gt;       &lt;num&gt;        &lt;num&gt;
-1: Annualized Sharpe Ratio (Rf=0%)  0.91190638  0.27745447  0.054804686
-2:               Annualized Return  0.02921277  0.03142456  0.001360716
-3:                              dd -0.04691197 -0.41340848 -0.201134923</code></pre>
+<pre><code>                           var    strategy
+                        &lt;char&gt;       &lt;num&gt;
+1: Anualizirani Sharpeov omjer  1.01403110
+2:         Anualizirani prinos  0.08603639
+3:                    Drawdown -0.25151684</code></pre>
 </div>
 </div>
 </section>
+<section id="kalendarski-efekt" class="level2">
+<h2 class="anchored" data-anchor-id="kalendarski-efekt">Kalendarski efekt</h2>
+<p>U ovom se poglavlju analiziraju kalendarski efekti rebalansiranja. Ako investicijski fondovi, koji ulažu u RH prilagođavaju udjele dionica i obveznica u portfelju krajem mjeseca, efekt bi trebao imati utjecaj na prinose krajem mjeseca. Prvo se provodi deskriptivna analiza, kako bi se graficki procijenio efekt rebalansiranja na kraju mjeseca. U drugom dijelu se provodi jednostavna regresijska analiza, kako bi se procijenio utjecaj prinosa u prvom dijelu mjeseca na prinose u posljednjem tjednu istog mjeseca. U trećem podpoglavlju se simulira investicijska strategija, koja kupuje i drži podcjenjenu imovinu 5 dana prije kraja mjeseca.</p>
+</section>
+<section id="desktiptivna-analiza" class="level2">
+<h2 class="anchored" data-anchor-id="desktiptivna-analiza">Desktiptivna analiza</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-ratio" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ratio-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="zse_eom_rebalansiranje_files/figure-html/fig-ratio-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ratio-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Razlika prinosa CROBEX’a i CROBIS-a u prvom dijelu mjeseca
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Investicijski fondovi rebalansiraju portfolio ako se udio dionica ili obveznica znatno odmakne od cijanih udjela u portofliu. Primjerice, ako fond želi održavati fiksni udjel dionica i obveznica u omjeru 60/40, te udio dionica tijekom mjeseca naraste na 62%, fond ce krajem mjeseca prodavati dionice i kupovati obveznice.</p>
+<p>Na slici <a href="#fig-ratio" class="quarto-xref">Figure&nbsp;2</a> je prikazana razlika prinosa CROBEX-a i CROBIS-a u prvom dijelu mjeseca (oko 15 trgovinskih dana). Vrijednost omjera iznad nule označava veći rast CROBEX-a u prvom dijelu mjeseca, i obrnuto. U radu se analizira postoji li pritisak na pad vrijednosti omjera za veće odmake od 0. Efekt se može jednostavno analizirati izračunom prosječnog i medijalnog prinosa CROBEX-a kada je vrijednost omjera veća od 0 ili manja od 0.</p>
+<p>Slika <a href="#fig-bar-mean" class="quarto-xref">Figure&nbsp;3</a> pokazuje razliku u prinosima CROBEX-a u zadnjem tjednu u dva slučaja. Lijevi stupac na oba grafikona prikazuje prinos CROBEX-a kada je prinos CROBEX-a u prvom dijelu tjedna bio manji od prinosa CROBIS-a. Desna strana oba grafikona prikazuje prinose CROBEX-a u svim zadnjim tjednima. Grafička analizira indicira postojanje kalendarskog efekta jer su prinosi otprilike pola posto veći, ako se uvjetuju razlikom između CROBEX-a i CROBIS-a u prvom dijelu mjeseca. Efekt izražen kako kod prosječnih, tako i kod medijalnih prinosa.</p>
+<p>Slika <a href="#fig-bar-crobis" class="quarto-xref">Figure&nbsp;4</a> pokazuje istu analizu za CROBIS. Na X osi je dummy varijabla koja pokazuje uzimaju li se u obzir razlika prinosa u prvom dijelu mjeseca. Graf ponovno pokayuje veće prinose CROBIS-a, ako su uvjetovani na disbalans CROBEX-a i CROBIS-a u rpvom dijelu mjeseca. Na lijevom grafu se vidi da su prosječni prinosi CROBIS-a negativni ako se gledaju svi posljednji tjedni u mjesecu i pozitivni ako se u obzir uzmu samo danikod kojih je prinos CROBEX-a u odnosu na CROBIS u prvom dijelu mjeseca bio pozitivan. Isti zaključak se može donijeti i za medijalne prinose.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-bar-mean" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-bar-mean-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="zse_eom_rebalansiranje_files/figure-html/fig-bar-mean-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-bar-mean-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Prosječni i medijalni prinosi CROBEX-a u zadnjem tjednu
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-bar-crobis" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-bar-crobis-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="zse_eom_rebalansiranje_files/figure-html/fig-bar-crobis-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-bar-crobis-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: Prosječni i medijalni prinosi CROBIS-a u zadnjem tjednu
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="kalendarski-efekt---pristup-regresijske-analize" class="level2">
+<h2 class="anchored" data-anchor-id="kalendarski-efekt---pristup-regresijske-analize">Kalendarski efekt - pristup regresijske analize</h2>
+<p>Započinjemo s vrlo jednostavnom regresijskom analizom. Zavisna varijabla je višak prinosa CROBEX-a nad CROBIS-om u zadnjem tjednu tekućeg mjeseca (od 16 trgovinskog dana do kraja mjeseca), a nezavisna varijabla je višak prinosa CROBEX-a nad CROBIS-om u prvom dijelu mjeseca (od 1 do 15. trgovinskog dana). Očekuje se negativna korelacija zavisne i nezavisne varijable. Ako je CROBEX rastao više u prvom dijelu mjeseca, očekuje se, u prosjeku, smanjenje viška prinosa u odnosu na CROBIS u drugom dijelu mjeseca. U drugoj specifikaciji će se regresijska analiza proširiti za dvije kontrolne varijable: mjesečni i godišnji momentum CROBEX-a i CROBIS-a.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-calendar-reg" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-calendar-reg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="zse_eom_rebalansiranje_files/figure-html/fig-calendar-reg-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-calendar-reg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: Dijagram raspršenosti razlike prinosa CROBEX-a nad CROBIS-om i jednostavna linerna regresija razlike prinosa u zadnjem tjednu na razliku prinosa u prvom dijelu mjeseca
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Slika <a href="#fig-calendar-reg" class="quarto-xref">Figure&nbsp;5</a> prikazuje dijagram raspršenosti razlike prinosa CROBEX-a i CROBIS-a u zadnjem dijelu mjeseca na y osi i za prvi dio mjeseca na x osi. Slika pokazuje očekivno negativan nagib regresijskog pravca. U posljednjem tjednu mjeseca događa povratak od viših razlika prinosa prema nižm.</p>
+<p>Nakon grafičkog prikaza prikazujemo, u tablici <span class="citation" data-cites="tab-calendar-reg">(<a href="#ref-tab-calendar-reg" role="doc-biblioref"><strong>tab-calendar-reg?</strong></a>)</span> prikazujemo rezultate procjene parametara regresijske jednadžbe. Prve dvije kolone prikazuju rezultate pod pretpostavkom homoskedastičnih grešaka (LM 1 i LM 2), dok se u trećem i četvrtom stupcu tablice prikazuju standardne pogreške prilagođene za heteroskedastičnost. U tablici se prikazuju procjene regresijskih koeficijenata, standardne greške procjene i zvjezdice koje označavaju statističku značajnost koeficijenata. U koloni LM 1 se može vidjeti da je koeficijent <span class="math inline">\(\beta_1\)</span> statistički značajan i negativan, što upućuje na postojanje kalendarskog efekta. U drugoj specifikaciji, koja uključuje kontrolne varijable, koeficijent <span class="math inline">\(\beta_1\)</span> zadržava negativan predznak. Međutim, u kolonama LM HAC 1 i LM HAC 2, kod kojih se koriste robusne standardne greške, koeficijent gubi statističku značajnost.</p>
+<div class="cell">
+<div class="cell-output-display">
+<!-- preamble start -->
+
+    <script>
+
+      function styleCell_n51ji1f84bo1gex7whsp(i, j, css_id) {
+          var table = document.getElementById("tinytable_n51ji1f84bo1gex7whsp");
+          var cell = table.rows[i]?.cells[j];  // Safe navigation to avoid errors
+          if (cell) {
+              console.log(`Styling cell at (${i}, ${j}) with class ${css_id}`);
+              cell.classList.add(css_id);
+          } else {
+              console.warn(`Cell at (${i}, ${j}) not found.`);
+          }
+      }
+      function insertSpanRow(i, colspan, content) {
+        var table = document.getElementById('tinytable_n51ji1f84bo1gex7whsp');
+        var newRow = table.insertRow(i);
+        var newCell = newRow.insertCell(0);
+        newCell.setAttribute("colspan", colspan);
+        // newCell.innerText = content;
+        // this may be unsafe, but innerText does not interpret <br>
+        newCell.innerHTML = content;
+      }
+      function spanCell_n51ji1f84bo1gex7whsp(i, j, rowspan, colspan) {
+        var table = document.getElementById("tinytable_n51ji1f84bo1gex7whsp");
+        const targetRow = table.rows[i];
+        const targetCell = targetRow.cells[j];
+        for (let r = 0; r < rowspan; r++) {
+          // Only start deleting cells to the right for the first row (r == 0)
+          if (r === 0) {
+            // Delete cells to the right of the target cell in the first row
+            for (let c = colspan - 1; c > 0; c--) {
+              if (table.rows[i + r].cells[j + c]) {
+                table.rows[i + r].deleteCell(j + c);
+              }
+            }
+          }
+          // For rows below the first, delete starting from the target column
+          if (r > 0) {
+            for (let c = colspan - 1; c >= 0; c--) {
+              if (table.rows[i + r] && table.rows[i + r].cells[j]) {
+                table.rows[i + r].deleteCell(j);
+              }
+            }
+          }
+        }
+        // Set rowspan and colspan of the target cell
+        targetCell.rowSpan = rowspan;
+        targetCell.colSpan = colspan;
+      }
+      // tinytable span after
+      window.addEventListener('load', function () {
+          var cellsToStyle = [
+            // tinytable style arrays after
+          { positions: [ { i: 0, j: 0 },  ], css_id: 'tinytable_css_wswg3q2tw3zd470u3wfi',}, 
+          { positions: [ { i: 17, j: 0 },  ], css_id: 'tinytable_css_vw4ry5x86gufqu424jie',}, 
+          { positions: [ { i: 17, j: 2 }, { i: 17, j: 1 }, { i: 17, j: 3 }, { i: 17, j: 4 },  ], css_id: 'tinytable_css_uuhss4b68mldmr6zyeql',}, 
+          { positions: [ { i: 1, j: 0 }, { i: 2, j: 0 }, { i: 3, j: 0 }, { i: 4, j: 0 }, { i: 5, j: 0 }, { i: 6, j: 0 }, { i: 7, j: 0 }, { i: 12, j: 0 }, { i: 9, j: 0 }, { i: 10, j: 0 }, { i: 11, j: 0 }, { i: 16, j: 0 }, { i: 13, j: 0 }, { i: 14, j: 0 }, { i: 15, j: 0 },  ], css_id: 'tinytable_css_susk6drv1e4gplkuev8o',}, 
+          { positions: [ { i: 0, j: 1 }, { i: 0, j: 2 }, { i: 0, j: 4 }, { i: 0, j: 3 },  ], css_id: 'tinytable_css_nrel5m8jajfoxg9lqr9w',}, 
+          { positions: [ { i: 8, j: 2 }, { i: 8, j: 4 }, { i: 8, j: 3 }, { i: 8, j: 1 },  ], css_id: 'tinytable_css_nmnhglmagoyfes69fosr',}, 
+          { positions: [ { i: 3, j: 1 }, { i: 4, j: 1 }, { i: 1, j: 1 }, { i: 7, j: 1 }, { i: 3, j: 2 }, { i: 9, j: 1 }, { i: 6, j: 1 }, { i: 11, j: 1 }, { i: 12, j: 1 }, { i: 13, j: 1 }, { i: 14, j: 1 }, { i: 2, j: 1 }, { i: 16, j: 1 }, { i: 12, j: 2 }, { i: 5, j: 1 }, { i: 1, j: 2 }, { i: 2, j: 2 }, { i: 16, j: 2 }, { i: 4, j: 2 }, { i: 10, j: 1 }, { i: 6, j: 2 }, { i: 7, j: 2 }, { i: 3, j: 3 }, { i: 9, j: 2 }, { i: 15, j: 1 }, { i: 11, j: 2 }, { i: 7, j: 3 }, { i: 13, j: 2 }, { i: 14, j: 2 }, { i: 15, j: 2 }, { i: 11, j: 3 }, { i: 12, j: 3 }, { i: 5, j: 2 }, { i: 1, j: 3 }, { i: 2, j: 3 }, { i: 16, j: 3 }, { i: 4, j: 3 }, { i: 10, j: 2 }, { i: 6, j: 3 }, { i: 2, j: 4 }, { i: 3, j: 4 }, { i: 9, j: 3 }, { i: 10, j: 3 }, { i: 6, j: 4 }, { i: 7, j: 4 }, { i: 13, j: 3 }, { i: 14, j: 3 }, { i: 15, j: 3 }, { i: 11, j: 4 }, { i: 12, j: 4 }, { i: 5, j: 3 }, { i: 1, j: 4 }, { i: 15, j: 4 }, { i: 16, j: 4 }, { i: 4, j: 4 }, { i: 5, j: 4 }, { i: 10, j: 4 }, { i: 9, j: 4 }, { i: 14, j: 4 }, { i: 13, j: 4 },  ], css_id: 'tinytable_css_1qtj6eldiazteys7hzs2',}, 
+          { positions: [ { i: 8, j: 0 },  ], css_id: 'tinytable_css_0o62kg7i0tbe07x0nkv6',}, 
+          ];
+
+          // Loop over the arrays to style the cells
+          cellsToStyle.forEach(function (group) {
+              group.positions.forEach(function (cell) {
+                  styleCell_n51ji1f84bo1gex7whsp(cell.i, cell.j, group.css_id);
+              });
+          });
+      });
+    </script>
+
+    <style>
+      /* tinytable css entries after */
+      .table td.tinytable_css_wswg3q2tw3zd470u3wfi, .table th.tinytable_css_wswg3q2tw3zd470u3wfi { text-align: left; border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
+      .table td.tinytable_css_vw4ry5x86gufqu424jie, .table th.tinytable_css_vw4ry5x86gufqu424jie { text-align: left; border-bottom: solid #d3d8dc 0.1em; }
+      .table td.tinytable_css_uuhss4b68mldmr6zyeql, .table th.tinytable_css_uuhss4b68mldmr6zyeql { text-align: center; border-bottom: solid #d3d8dc 0.1em; }
+      .table td.tinytable_css_susk6drv1e4gplkuev8o, .table th.tinytable_css_susk6drv1e4gplkuev8o { text-align: left; }
+      .table td.tinytable_css_nrel5m8jajfoxg9lqr9w, .table th.tinytable_css_nrel5m8jajfoxg9lqr9w { text-align: center; border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
+      .table td.tinytable_css_nmnhglmagoyfes69fosr, .table th.tinytable_css_nmnhglmagoyfes69fosr { text-align: center; border-bottom: solid black 0.05em; }
+      .table td.tinytable_css_1qtj6eldiazteys7hzs2, .table th.tinytable_css_1qtj6eldiazteys7hzs2 { text-align: center; }
+      .table td.tinytable_css_0o62kg7i0tbe07x0nkv6, .table th.tinytable_css_0o62kg7i0tbe07x0nkv6 { text-align: left; border-bottom: solid black 0.05em; }
+    </style>
+    <div class="container">
+      <table class="table table-borderless" id="tinytable_n51ji1f84bo1gex7whsp" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+        <thead>
+        
+              <tr>
+                <th scope="col"> </th>
+                <th scope="col">LM 1</th>
+                <th scope="col">LM 2</th>
+                <th scope="col">LM HAC 1</th>
+                <th scope="col">LM HAC 2</th>
+              </tr>
+        </thead>
+        <tfoot><tr><td colspan="5">+ p &lt; 0.1, * p &lt; 0.05, ** p &lt; 0.01, *** p &lt; 0.001</td></tr>
+<tr><td colspan="5">Tablica prikazuje procjene regresijskih koeficijenata i standardne greške specifikacije dane u 1.</td></tr></tfoot>
+        <tbody>
+                <tr>
+                  <td>(Intercept)</td>
+                  <td>0.004**</td>
+                  <td>0.003*</td>
+                  <td>0.004**</td>
+                  <td>0.003*</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>0.001 (0.005)</td>
+                  <td>0.001 (0.012)</td>
+                  <td>0.001 (0.007)</td>
+                  <td>0.001 (0.013)</td>
+                </tr>
+                <tr>
+                  <td>ratio_1</td>
+                  <td>-0.091***</td>
+                  <td>-0.089***</td>
+                  <td>-0.091</td>
+                  <td>-0.089</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>0.025 (&lt;0.001)</td>
+                  <td>0.025 (&lt;0.001)</td>
+                  <td>0.073 (0.214)</td>
+                  <td>0.075 (0.233)</td>
+                </tr>
+                <tr>
+                  <td>mom_month</td>
+                  <td></td>
+                  <td>-0.000</td>
+                  <td></td>
+                  <td>-0.000</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td>0.000 (0.717)</td>
+                  <td></td>
+                  <td>0.000 (0.620)</td>
+                </tr>
+                <tr>
+                  <td>mom_year</td>
+                  <td></td>
+                  <td>0.000</td>
+                  <td></td>
+                  <td>0.000</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td>0.000 (0.134)</td>
+                  <td></td>
+                  <td>0.000 (0.338)</td>
+                </tr>
+                <tr>
+                  <td>Num.Obs.</td>
+                  <td>257</td>
+                  <td>245</td>
+                  <td>257</td>
+                  <td>245</td>
+                </tr>
+                <tr>
+                  <td>R2</td>
+                  <td>0.051</td>
+                  <td>0.063</td>
+                  <td>0.051</td>
+                  <td>0.063</td>
+                </tr>
+                <tr>
+                  <td>R2 Adj.</td>
+                  <td>0.048</td>
+                  <td>0.051</td>
+                  <td>0.048</td>
+                  <td>0.051</td>
+                </tr>
+                <tr>
+                  <td>AIC</td>
+                  <td>-1259.3</td>
+                  <td>-1203.8</td>
+                  <td>-1259.3</td>
+                  <td>-1203.8</td>
+                </tr>
+                <tr>
+                  <td>BIC</td>
+                  <td>-1248.7</td>
+                  <td>-1186.3</td>
+                  <td>-1248.7</td>
+                  <td>-1186.3</td>
+                </tr>
+                <tr>
+                  <td>Log.Lik.</td>
+                  <td>632.657</td>
+                  <td>606.890</td>
+                  <td>632.657</td>
+                  <td>606.890</td>
+                </tr>
+                <tr>
+                  <td>F</td>
+                  <td>13.780</td>
+                  <td>5.392</td>
+                  <td>1.552</td>
+                  <td>1.308</td>
+                </tr>
+                <tr>
+                  <td>RMSE</td>
+                  <td>0.02</td>
+                  <td>0.02</td>
+                  <td>0.02</td>
+                  <td>0.02</td>
+                </tr>
+                <tr>
+                  <td>Std.Errors</td>
+                  <td>IID</td>
+                  <td>IID</td>
+                  <td>HC3</td>
+                  <td>HC3</td>
+                </tr>
+        </tbody>
+      </table>
+    </div>
+<!-- hack to avoid NA insertion in last line -->
+</div>
+</div>
+<p>Dijagram raspršenosti s regresijkim pravcme otkriva jednu neobičnu opservaciju. Za bolji uvid o mogućoj značajnosti ove opservacije na slici <a href="#fig-calendar-residuals" class="quarto-xref">Figure&nbsp;6</a> prikazujemo rezidualne vrijednosti regresijskog modela. Na slici se vidi da postoji jedna opservacija koja se znatno odvaja od ostalih. Kako bi ispitali osjetljivost modela na isključivanje ove opservacije, prikazujemo rezultate regresijske analize bez ove opservacije. U tablici <span class="citation" data-cites="tab-calendar-reg-outlier">(<a href="#ref-tab-calendar-reg-outlier" role="doc-biblioref"><strong>tab-calendar-reg-outlier?</strong></a>)</span> prikazujemo rezultate regresijske analize bez tog opažanja.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-calendar-residuals" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-calendar-residuals-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="zse_eom_rebalansiranje_files/figure-html/fig-calendar-residuals-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-calendar-residuals-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6: Reziduali regresijskog modela
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Rezultat regresijske analize bez jedne opservacije pokazuje statički signifikantne koeficijente u svim kolonama. Koeficijent <span class="math inline">\(\beta_1\)</span> je negativan i statistički značajan uz razine značajnosti od 0.1%. Ovi rezultati potvrđuju postojanje kalendarskog efekta u dinamici razlike prinosa CROBEX-a i CROBIS-a.</p>
+<div class="cell">
+<div class="cell-output-display">
+<!-- preamble start -->
+
+    <script>
+
+      function styleCell_fi0f2wc6gts95duiwp1x(i, j, css_id) {
+          var table = document.getElementById("tinytable_fi0f2wc6gts95duiwp1x");
+          var cell = table.rows[i]?.cells[j];  // Safe navigation to avoid errors
+          if (cell) {
+              console.log(`Styling cell at (${i}, ${j}) with class ${css_id}`);
+              cell.classList.add(css_id);
+          } else {
+              console.warn(`Cell at (${i}, ${j}) not found.`);
+          }
+      }
+      function insertSpanRow(i, colspan, content) {
+        var table = document.getElementById('tinytable_fi0f2wc6gts95duiwp1x');
+        var newRow = table.insertRow(i);
+        var newCell = newRow.insertCell(0);
+        newCell.setAttribute("colspan", colspan);
+        // newCell.innerText = content;
+        // this may be unsafe, but innerText does not interpret <br>
+        newCell.innerHTML = content;
+      }
+      function spanCell_fi0f2wc6gts95duiwp1x(i, j, rowspan, colspan) {
+        var table = document.getElementById("tinytable_fi0f2wc6gts95duiwp1x");
+        const targetRow = table.rows[i];
+        const targetCell = targetRow.cells[j];
+        for (let r = 0; r < rowspan; r++) {
+          // Only start deleting cells to the right for the first row (r == 0)
+          if (r === 0) {
+            // Delete cells to the right of the target cell in the first row
+            for (let c = colspan - 1; c > 0; c--) {
+              if (table.rows[i + r].cells[j + c]) {
+                table.rows[i + r].deleteCell(j + c);
+              }
+            }
+          }
+          // For rows below the first, delete starting from the target column
+          if (r > 0) {
+            for (let c = colspan - 1; c >= 0; c--) {
+              if (table.rows[i + r] && table.rows[i + r].cells[j]) {
+                table.rows[i + r].deleteCell(j);
+              }
+            }
+          }
+        }
+        // Set rowspan and colspan of the target cell
+        targetCell.rowSpan = rowspan;
+        targetCell.colSpan = colspan;
+      }
+      // tinytable span after
+      window.addEventListener('load', function () {
+          var cellsToStyle = [
+            // tinytable style arrays after
+          { positions: [ { i: 17, j: 2 }, { i: 17, j: 1 }, { i: 17, j: 3 }, { i: 17, j: 4 },  ], css_id: 'tinytable_css_tjjtcq2kwilpd8f68gcm',}, 
+          { positions: [ { i: 1, j: 0 }, { i: 2, j: 0 }, { i: 3, j: 0 }, { i: 4, j: 0 }, { i: 5, j: 0 }, { i: 6, j: 0 }, { i: 7, j: 0 }, { i: 12, j: 0 }, { i: 9, j: 0 }, { i: 10, j: 0 }, { i: 11, j: 0 }, { i: 16, j: 0 }, { i: 13, j: 0 }, { i: 14, j: 0 }, { i: 15, j: 0 },  ], css_id: 'tinytable_css_omk05kddio1la8sazi6a',}, 
+          { positions: [ { i: 3, j: 1 }, { i: 4, j: 1 }, { i: 1, j: 1 }, { i: 7, j: 1 }, { i: 3, j: 2 }, { i: 9, j: 1 }, { i: 6, j: 1 }, { i: 11, j: 1 }, { i: 12, j: 1 }, { i: 13, j: 1 }, { i: 14, j: 1 }, { i: 2, j: 1 }, { i: 16, j: 1 }, { i: 12, j: 2 }, { i: 5, j: 1 }, { i: 1, j: 2 }, { i: 2, j: 2 }, { i: 16, j: 2 }, { i: 4, j: 2 }, { i: 10, j: 1 }, { i: 6, j: 2 }, { i: 7, j: 2 }, { i: 3, j: 3 }, { i: 9, j: 2 }, { i: 15, j: 1 }, { i: 11, j: 2 }, { i: 7, j: 3 }, { i: 13, j: 2 }, { i: 14, j: 2 }, { i: 15, j: 2 }, { i: 11, j: 3 }, { i: 12, j: 3 }, { i: 5, j: 2 }, { i: 1, j: 3 }, { i: 2, j: 3 }, { i: 16, j: 3 }, { i: 4, j: 3 }, { i: 10, j: 2 }, { i: 6, j: 3 }, { i: 2, j: 4 }, { i: 3, j: 4 }, { i: 9, j: 3 }, { i: 10, j: 3 }, { i: 6, j: 4 }, { i: 7, j: 4 }, { i: 13, j: 3 }, { i: 14, j: 3 }, { i: 15, j: 3 }, { i: 11, j: 4 }, { i: 12, j: 4 }, { i: 5, j: 3 }, { i: 1, j: 4 }, { i: 15, j: 4 }, { i: 16, j: 4 }, { i: 4, j: 4 }, { i: 5, j: 4 }, { i: 10, j: 4 }, { i: 9, j: 4 }, { i: 14, j: 4 }, { i: 13, j: 4 },  ], css_id: 'tinytable_css_mntkonwiwsc6ntf3w9x1',}, 
+          { positions: [ { i: 17, j: 0 },  ], css_id: 'tinytable_css_m1kfrtlhxr5c76k99513',}, 
+          { positions: [ { i: 8, j: 0 },  ], css_id: 'tinytable_css_l9dc89oqzs5wccr6tlo4',}, 
+          { positions: [ { i: 8, j: 2 }, { i: 8, j: 4 }, { i: 8, j: 3 }, { i: 8, j: 1 },  ], css_id: 'tinytable_css_dbfozj471nty2ptqbitw',}, 
+          { positions: [ { i: 0, j: 0 },  ], css_id: 'tinytable_css_64pj7o1dzo0pqfox6zhy',}, 
+          { positions: [ { i: 0, j: 1 }, { i: 0, j: 2 }, { i: 0, j: 4 }, { i: 0, j: 3 },  ], css_id: 'tinytable_css_1btnt6igt3xeypiqf3mo',}, 
+          ];
+
+          // Loop over the arrays to style the cells
+          cellsToStyle.forEach(function (group) {
+              group.positions.forEach(function (cell) {
+                  styleCell_fi0f2wc6gts95duiwp1x(cell.i, cell.j, group.css_id);
+              });
+          });
+      });
+    </script>
+
+    <style>
+      /* tinytable css entries after */
+      .table td.tinytable_css_tjjtcq2kwilpd8f68gcm, .table th.tinytable_css_tjjtcq2kwilpd8f68gcm { text-align: center; border-bottom: solid #d3d8dc 0.1em; }
+      .table td.tinytable_css_omk05kddio1la8sazi6a, .table th.tinytable_css_omk05kddio1la8sazi6a { text-align: left; }
+      .table td.tinytable_css_mntkonwiwsc6ntf3w9x1, .table th.tinytable_css_mntkonwiwsc6ntf3w9x1 { text-align: center; }
+      .table td.tinytable_css_m1kfrtlhxr5c76k99513, .table th.tinytable_css_m1kfrtlhxr5c76k99513 { text-align: left; border-bottom: solid #d3d8dc 0.1em; }
+      .table td.tinytable_css_l9dc89oqzs5wccr6tlo4, .table th.tinytable_css_l9dc89oqzs5wccr6tlo4 { text-align: left; border-bottom: solid black 0.05em; }
+      .table td.tinytable_css_dbfozj471nty2ptqbitw, .table th.tinytable_css_dbfozj471nty2ptqbitw { text-align: center; border-bottom: solid black 0.05em; }
+      .table td.tinytable_css_64pj7o1dzo0pqfox6zhy, .table th.tinytable_css_64pj7o1dzo0pqfox6zhy { text-align: left; border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
+      .table td.tinytable_css_1btnt6igt3xeypiqf3mo, .table th.tinytable_css_1btnt6igt3xeypiqf3mo { text-align: center; border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
+    </style>
+    <div class="container">
+      <table class="table table-borderless" id="tinytable_fi0f2wc6gts95duiwp1x" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+        <thead>
+        
+              <tr>
+                <th scope="col"> </th>
+                <th scope="col">LM 1</th>
+                <th scope="col">LM 2</th>
+                <th scope="col">LM HAC 1</th>
+                <th scope="col">LM HAC 2</th>
+              </tr>
+        </thead>
+        <tfoot><tr><td colspan="5">+ p &lt; 0.1, * p &lt; 0.05, ** p &lt; 0.01, *** p &lt; 0.001</td></tr>
+<tr><td colspan="5">Tablica prikazuje procjene regresijskih koeficijenata i standardne greške specifikacije dane u 1.</td></tr></tfoot>
+        <tbody>
+                <tr>
+                  <td>(Intercept)</td>
+                  <td>0.003**</td>
+                  <td>0.003*</td>
+                  <td>0.003*</td>
+                  <td>0.003*</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>0.001 (0.010)</td>
+                  <td>0.001 (0.018)</td>
+                  <td>0.001 (0.010)</td>
+                  <td>0.001 (0.020)</td>
+                </tr>
+                <tr>
+                  <td>ratio_1</td>
+                  <td>-0.153***</td>
+                  <td>-0.152***</td>
+                  <td>-0.153***</td>
+                  <td>-0.152***</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>0.025 (&lt;0.001)</td>
+                  <td>0.025 (&lt;0.001)</td>
+                  <td>0.043 (&lt;0.001)</td>
+                  <td>0.043 (&lt;0.001)</td>
+                </tr>
+                <tr>
+                  <td>mom_month</td>
+                  <td></td>
+                  <td>0.000</td>
+                  <td></td>
+                  <td>0.000</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td>0.000 (0.914)</td>
+                  <td></td>
+                  <td>0.000 (0.863)</td>
+                </tr>
+                <tr>
+                  <td>mom_year</td>
+                  <td></td>
+                  <td>0.000</td>
+                  <td></td>
+                  <td>0.000</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td>0.000 (0.299)</td>
+                  <td></td>
+                  <td>0.000 (0.470)</td>
+                </tr>
+                <tr>
+                  <td>Num.Obs.</td>
+                  <td>256</td>
+                  <td>244</td>
+                  <td>256</td>
+                  <td>244</td>
+                </tr>
+                <tr>
+                  <td>R2</td>
+                  <td>0.129</td>
+                  <td>0.142</td>
+                  <td>0.129</td>
+                  <td>0.142</td>
+                </tr>
+                <tr>
+                  <td>R2 Adj.</td>
+                  <td>0.126</td>
+                  <td>0.132</td>
+                  <td>0.126</td>
+                  <td>0.132</td>
+                </tr>
+                <tr>
+                  <td>AIC</td>
+                  <td>-1290.9</td>
+                  <td>-1235.5</td>
+                  <td>-1290.9</td>
+                  <td>-1235.5</td>
+                </tr>
+                <tr>
+                  <td>BIC</td>
+                  <td>-1280.3</td>
+                  <td>-1218.0</td>
+                  <td>-1280.3</td>
+                  <td>-1218.0</td>
+                </tr>
+                <tr>
+                  <td>Log.Lik.</td>
+                  <td>648.466</td>
+                  <td>622.751</td>
+                  <td>648.466</td>
+                  <td>622.751</td>
+                </tr>
+                <tr>
+                  <td>F</td>
+                  <td>37.708</td>
+                  <td></td>
+                  <td>12.826</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>RMSE</td>
+                  <td>0.02</td>
+                  <td>0.02</td>
+                  <td>0.02</td>
+                  <td>0.02</td>
+                </tr>
+                <tr>
+                  <td>Std.Errors</td>
+                  <td>IID</td>
+                  <td>IID</td>
+                  <td>HC3</td>
+                  <td>HC3</td>
+                </tr>
+        </tbody>
+      </table>
+    </div>
+<!-- hack to avoid NA insertion in last line -->
+</div>
+</div>
+</section>
+<section id="kalendarski-efekt---pristup-investicijske-strategije" class="level2">
+<h2 class="anchored" data-anchor-id="kalendarski-efekt---pristup-investicijske-strategije">Kalendarski efekt - pristup investicijske strategije</h2>
+<p>Ekonomski značaj kalendarskog efekta može se analizirati simulacijom investicijske strategije, koja kupuje podcjenjenu imovinu 5 dana prije kraja mjeseca. Ukoliko je razlika prinosa CROBEX-a i CROBIS-a u prvom dijelu mjeseca veća od 0, strategija kupuje CROBIS, a ako je razlika manja od 0, kupuje CROBEX.</p>
+<p>Na slici <a href="#fig-strategy" class="quarto-xref">Figure&nbsp;7</a> prikazan je grafikon prinosa investicijske strategije. Na slici se vidi da je strategija donijela veće prinose od oba indeksa.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-strategy" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-strategy-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="zse_eom_rebalansiranje_files/figure-html/fig-strategy-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-strategy-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7: Prinos investicijske strategije
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-a4b82242{}.cl-a4ad5fba{font-family:'Arial';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-a4ad5fc4{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-a4b166dc{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-a4b166e6{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-a4b187de{width:2.196in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a4b187e8{width:1.143in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a4b187f2{width:1.058in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a4b187f3{width:1.228in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a4b187fc{width:2.196in;background-color:transparent;vertical-align: middle;border-bottom: 0.75pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a4b18806{width:1.143in;background-color:transparent;vertical-align: middle;border-bottom: 0.75pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a4b18807{width:1.058in;background-color:transparent;vertical-align: middle;border-bottom: 0.75pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a4b18810{width:1.228in;background-color:transparent;vertical-align: middle;border-bottom: 0.75pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a4b18811{width:2.196in;background-color:transparent;vertical-align: middle;border-bottom: 0.75pt solid rgba(102, 102, 102, 1.00);border-top: 0.75pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a4b1881a{width:1.143in;background-color:transparent;vertical-align: middle;border-bottom: 0.75pt solid rgba(102, 102, 102, 1.00);border-top: 0.75pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a4b1881b{width:1.058in;background-color:transparent;vertical-align: middle;border-bottom: 0.75pt solid rgba(102, 102, 102, 1.00);border-top: 0.75pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a4b1881c{width:1.228in;background-color:transparent;vertical-align: middle;border-bottom: 0.75pt solid rgba(102, 102, 102, 1.00);border-top: 0.75pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a4b18824{width:2.196in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0.75pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a4b18825{width:1.143in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0.75pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a4b18826{width:1.058in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0.75pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a4b1882e{width:1.228in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0.75pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-a4b82242"><thead><tr style="overflow-wrap:break-word;"><th class="cl-a4b187de"><p class="cl-a4b166dc"><span class="cl-a4ad5fba">Mjera performansi</span></p></th><th class="cl-a4b187e8"><p class="cl-a4b166e6"><span class="cl-a4ad5fba">Kalendar</span></p></th><th class="cl-a4b187f2"><p class="cl-a4b166e6"><span class="cl-a4ad5fba">CROBEX</span></p></th><th class="cl-a4b187f3"><p class="cl-a4b166e6"><span class="cl-a4ad5fba">CROBIS</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-a4b187fc"><p class="cl-a4b166dc"><span class="cl-a4ad5fc4">Anualizirani Sharpeov omjer</span></p></td><td class="cl-a4b18806"><p class="cl-a4b166e6"><span class="cl-a4ad5fc4">0.88344924</span></p></td><td class="cl-a4b18807"><p class="cl-a4b166e6"><span class="cl-a4ad5fc4">0.3274513</span></p></td><td class="cl-a4b18810"><p class="cl-a4b166e6"><span class="cl-a4ad5fc4">-0.039946309</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-a4b18811"><p class="cl-a4b166dc"><span class="cl-a4ad5fc4">Anualizirani prinos</span></p></td><td class="cl-a4b1881a"><p class="cl-a4b166e6"><span class="cl-a4ad5fc4">0.05021047</span></p></td><td class="cl-a4b1881b"><p class="cl-a4b166e6"><span class="cl-a4ad5fc4">0.0539673</span></p></td><td class="cl-a4b1881c"><p class="cl-a4b166e6"><span class="cl-a4ad5fc4">-0.001101516</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-a4b18824"><p class="cl-a4b166dc"><span class="cl-a4ad5fc4">Drawdown</span></p></td><td class="cl-a4b18825"><p class="cl-a4b166e6"><span class="cl-a4ad5fc4">-0.07499964</span></p></td><td class="cl-a4b18826"><p class="cl-a4b166e6"><span class="cl-a4ad5fc4">-0.7658828</span></p></td><td class="cl-a4b1882e"><p class="cl-a4b166e6"><span class="cl-a4ad5fc4">-0.202204150</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+<p>Tablica <span class="citation" data-cites="tab-strategy">(<a href="#ref-tab-strategy" role="doc-biblioref"><strong>tab-strategy?</strong></a>)</span> prikazuje performanse investicijske strategije u usporedbi s performansama CROBEX-a i CROBIS-a. Strategija je donijela veće prinose od oba indeksa. Sharpeov omjer strategije je 0.88, što je znatno veće od Sharpeovog omjera CROBEX-a i CROBIS-a. Prinos strategije je isti kao i prinos CROBEX-a, ali je rizik znatno manji. Najveći pad CROBEX-a tijekom promatranog razdoblja je 76%, dok je najveći gubitak strategije od ATH (eng. <em>all time high</em>) 7.5%</p>
+<p>Budući da je strategija većinu vremena drži gotovinu, moguće je dodati kamatnu stopu na gotovinu, kako bi se dobio ukupni nominalni prinos za promatrano razdoblje. Ako se zada konzervativna kamatna stopa od 0.1% mjesečno, Sharpeov omjer raste na 0.9.</p>
+</section>
+</section>
+<section id="kombinirani-efekt" class="level1">
+<h1>Kombinirani efekt</h1>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="zse_eom_rebalansiranje_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 </section>
 <section id="analiza-robusnosti" class="level1">
 <h1>Analiza robusnosti</h1>
+<section id="efekt-početkom-mjeseca" class="level2">
+<h2 class="anchored" data-anchor-id="efekt-početkom-mjeseca">Efekt početkom mjeseca</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="zse_eom_rebalansiranje_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 </section>
-<section id="zaključak" class="level1 unnumbered">
-
+<section id="end-of-quarter-effect" class="level2">
+<h2 class="anchored" data-anchor-id="end-of-quarter-effect">End of quarter effect</h2>
+</section>
+</section>
+<section id="zaključak" class="level1">
+<h1>Zaključak</h1>
+<p>Istraživanje ima nekoliko ograničenja. Procjena graničkog efekta rebalansiranja je aproksimacija ponašanja investicijskih fondova. Iako je u regresijsokj analizi efekt signifikantan i nakon dodavanja kontrolnih varijabli, moguće je da postoji drugi uzroci uspješnosti investicijske strategije ili signifikanstnosti parametara. Tačan efekt moguće je procijeniti samo uz podatke o rebalansiranju za sve investicijske fondove. Riječ o alternativnim podacima koji su teško dostupni, ali moguće je proširiti analizu u budućnosti s novim podacima. Kalendarski efekt također može biti rezultat djelovanja drugih varijabli, koje nisu uključene u analizu.</p>
 
 </section>
 
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">Zaključak</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-Doe2025" class="csl-entry" role="listitem">
 Doe, John. 2025. <span>“The Impact of Technology on Education.”</span> <a href="https://ssrn.com/abstract=5122748">https://ssrn.com/abstract=5122748</a>.
 </div>
+<div id="ref-DundjekKokotec2021" class="csl-entry" role="listitem">
+Đunđek Kokotec, Ivana, Silvije Orsag, and Marina Klačmer Čalopa. 2021. <span>“The Impact of Institutional Investors’ Ownership on Performance and Financial Position: Evidence from Firms in the Republic of Croatia.”</span> <em>The South East European Journal of Economics and Business</em> 16 (1): 53–69. <a href="https://doi.org/10.2478/jeb-2021-0005">https://doi.org/10.2478/jeb-2021-0005</a>.
+</div>
 <div id="ref-Etula2020" class="csl-entry" role="listitem">
 Etula, Erik, Kim Rinne, Matti Suominen, and Lauri Vaittinen. 2020. <span>“Dash for Cash: Monthly Market Impact of Institutional Liquidity Needs.”</span> <em>Review of Financial Studies</em> 33 (1): 75–111. <a href="https://doi.org/10.1093/rfs/hhz084">https://doi.org/10.1093/rfs/hhz084</a>.
+</div>
+<div id="ref-ParkerSchoarSun2022" class="csl-entry" role="listitem">
+Parker, Jonathan A., Antoinette Schoar, and Yang Sun. 2022. <span>“Retail Financial Innovation and Stock Market Dynamics: The Case of Target Date Funds.”</span> <em>Journal of Finance, Forthcoming</em>.
+</div>
+<div id="ref-PengWang2024" class="csl-entry" role="listitem">
+Peng, Cameron, and Chen Wang. 2024. <span>“Factor Rebalancing.”</span>
 </div>
 <div id="ref-PeroldSharpe1988" class="csl-entry" role="listitem">
 Perold, André F., and William F. Sharpe. 1988. <span>“Dynamic Strategies for Asset Allocation.”</span> <em>Financial Analysts Journal</em> 44 (1): 16–27. <a href="https://caia.org/sites/default/files/dynamic_strategies_for_asset_allocation.pdf">https://caia.org/sites/default/files/dynamic_strategies_for_asset_allocation.pdf</a>.
@@ -238,7 +835,9 @@ Perold, André F., and William F. Sharpe. 1988. <span>“Dynamic Strategies for 
 </div></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
 
 <ol>
-<li id="fn1"><p>Transakcijski troškovi obuhvačaju brokerske provizije, <em>bid-ask spreadove</em> i tržišni utjecaj.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>Primjerice u RH postoji Pravilnik o dozvoljenim ulagajima i dodatnim ograničenjima ulaganja obveznog mirovisnkog fonda. Efekt rebalansiranja označuje promatrani agregatni utjecaj graničnog ili kalendarskog rebalansiranja na cijene dionica i obveynica.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Primjerice u RH postoji Pravilnik o dozvoljenim ulagajima i dodatnim ograničenjima ulaganja obveznog mirovisnkog fonda. Efekt rebalansiranja označuje promatrani agregatni utjecaj graničnog ili kalendarskog rebalansiranja na cijene dionica i obveynica.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Transakcijski troškovi obuhvačaju brokerske provizije, <em>bid-ask spreadove</em> i tržišni utjecaj.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main>
 <!-- /main column -->
