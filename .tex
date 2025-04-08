@@ -1,0 +1,35 @@
+\begin{table}
+\centering
+\begin{talltblr}[         %% tabularray outer open
+entry=none,label=none,
+note{}={+ p \num{< 0.1}, * p \num{< 0.05}, ** p \num{< 0.01}, *** p \num{< 0.001}},
+note{ }={Tablica prikazuje procjene regresijskih koeficijenata i standardne greške specifikacije dane u 1.},
+]                     %% tabularray outer close
+{                     %% tabularray inner open
+colspec={Q[]Q[]Q[]Q[]Q[]},
+column{2,3,4,5}={}{halign=c,},
+column{1}={}{halign=l,},
+hline{10}={1,2,3,4,5}{solid, black, 0.05em},
+}                     %% tabularray inner close
+\toprule
+& LM 1 & LM 2 & LM HAC 1 & LM HAC 2 \\ \midrule %% TinyTableHeader
+Odsječak & \num{0.004}** & \num{0.003}* & \num{0.004}** & \num{0.003}* \\
+& \num{0.001} (\num{0.005}) & \num{0.001} (\num{0.012}) & \num{0.001} (\num{0.007}) & \num{0.001} (\num{0.013}) \\
+RelR & \num{-0.091}*** & \num{-0.089}*** & \num{-0.091} & \num{-0.089} \\
+& \num{0.025} (\num{<0.001}) & \num{0.025} (\num{<0.001}) & \num{0.073} (\num{0.214}) & \num{0.075} (\num{0.233}) \\
+Mom\_mjesec &  & \num{-0.000} &  & \num{-0.000} \\
+&  & \num{0.000} (\num{0.717}) &  & \num{0.000} (\num{0.620}) \\
+Mom\_godina &  & \num{0.000} &  & \num{0.000} \\
+&  & \num{0.000} (\num{0.134}) &  & \num{0.000} (\num{0.338}) \\
+Num.Obs. & \num{257} & \num{245} & \num{257} & \num{245} \\
+R2 & \num{0.051} & \num{0.063} & \num{0.051} & \num{0.063} \\
+R2 Adj. & \num{0.048} & \num{0.051} & \num{0.048} & \num{0.051} \\
+AIC & \num{-1259.3} & \num{-1203.8} & \num{-1259.3} & \num{-1203.8} \\
+BIC & \num{-1248.7} & \num{-1186.3} & \num{-1248.7} & \num{-1186.3} \\
+Log.Lik. & \num{632.657} & \num{606.890} & \num{632.657} & \num{606.890} \\
+F & \num{13.780} & \num{5.392} & \num{1.552} & \num{1.308} \\
+RMSE & \num{0.02} & \num{0.02} & \num{0.02} & \num{0.02} \\
+Std.Errors & IID & IID & HC3 & HC3 \\
+\bottomrule
+\end{talltblr}
+\end{table}

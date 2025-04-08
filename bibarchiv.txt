@@ -1,0 +1,251 @@
+@article{PeroldSharpe1988,
+  author    = {André F. Perold and William F. Sharpe},
+  title     = {Dynamic Strategies for Asset Allocation},
+  journal   = {Financial Analysts Journal},
+  volume    = {44},
+  number    = {1},
+  pages     = {16--27},
+  year      = {1988},
+  publisher = {AIMR},
+  url       = {https://caia.org/sites/default/files/dynamic_strategies_for_asset_allocation.pdf}
+}
+@article{Etula2020,
+  author    = {Erik Etula and Kim Rinne and Matti Suominen and Lauri Vaittinen},
+  title     = {Dash for Cash: Monthly Market Impact of Institutional Liquidity Needs},
+  journal   = {Review of Financial Studies},
+  volume    = {33},
+  number    = {1},
+  pages     = {75--111},
+  year      = {2020},
+  publisher = {Oxford University Press},
+  doi       = {10.1093/rfs/hhz084}
+}
+@unpublished{PengWang2024,
+  title     = {Factor Rebalancing},
+  author    = {Peng, Cameron and Wang, Chen},
+  note      = {Available at \url{https://chenwang.one/files/fr.pdf}},
+  year      = {2024},
+  month     = {July},
+  day       = {15}
+}
+@article{ParkerSchoarSun2022,
+  author  = {Parker, Jonathan A. and Schoar, Antoinette and Sun, Yang},
+  title   = {Retail Financial Innovation and Stock Market Dynamics: The Case of Target Date Funds},
+  journal = {Journal of Finance, Forthcoming},
+  year    = {2022},
+  note    = {MIT Sloan Research Paper No. 6206-20. Available at SSRN: \url{https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4304420}}
+}
+@article{DundjekKokotec2021,
+  author  = {Đunđek Kokotec, Ivana and Orsag, Silvije and Klačmer Čalopa, Marina},
+  title   = {The Impact of Institutional Investors' Ownership on Performance and Financial Position: Evidence from Firms in the Republic of Croatia},
+  journal = {The South East European Journal of Economics and Business},
+  volume  = {16},
+  number  = {1},
+  pages   = {53--69},
+  year    = {2021},
+  doi     = {10.2478/jeb-2021-0005},
+  url     = {https://journal.efsa.unsa.ba/index.php/see/article/view/1539}
+}
+@article{da2018destabilizing,
+  author  = {Da, Zhi and Larrain, Borja and Sialm, Clemens and Tessada, José},
+  title   = {Destabilizing Financial Advice: Evidence from Pension Fund Reallocations},
+  journal = {Review of Financial Studies},
+  year    = {2018},
+  volume  = {31},
+  number  = {1},
+  pages   = {1-43},
+  doi     = {10.1093/rfs/hhy011}
+}
+@techreport{hanfa2025,
+  author    = {{Hrvatska agencija za razvoj financijskih usluga (HANFA)}},
+  title     = {Mjesečni pregled sektora financijskih usluga - siječanj 2025},
+  year      = {2025},
+  month     = {January},
+  url       = {https://www.hanfa.hr/media/phck4f1i/mjese%C4%8Dni-pregled-sfu-sije%C4%8Danj-2025.pdf},
+  note      = {Accessed: 2025-03-09}
+}
+@article{shleifer1986,
+  author    = {Shleifer, Andrei},
+  title     = {Do Demand Curves for Stocks Slope Down?},
+  journal   = {The Journal of Finance},
+  year      = {1986},
+  volume    = {41},
+  number    = {3},
+  pages     = {579-590},
+  doi       = {10.2307/2328486},
+  url       = {https://doi.org/10.2307/2328486}
+}
+@article{harris1986,
+  author    = {Harris, Lawrence and Gurel, Eitan},
+  title     = {Price and Volume Effects Associated with Changes in the S&P 500 List: New Evidence for the Existence of Price Pressures},
+  journal   = {The Journal of Finance},
+  year      = {1986},
+  volume    = {41},
+  number    = {4},
+  pages     = {815-829},
+  doi       = {10.2307/2328230},
+  url       = {https://doi.org/10.2307/2328230}
+}
+@article{edelen2001,
+  author    = {Edelen, Roger M. and Warner, Jerold B.},
+  title     = {Aggregate Price Effects of Institutional Trading: A Study of Mutual Fund Flow and Market Returns},
+  journal   = {Journal of Financial Economics},
+  year      = {2001},
+  volume    = {59},
+  number    = {2},
+  pages     = {195-220},
+  doi       = {10.1016/S0304-405X(00)00085-4},
+  url       = {https://www.sciencedirect.com/science/article/pii/S0304405X00000854}
+}
+
+
+@article{bildersee1987,
+  author    = {Bildersee, John S. and Kahn, Norman},
+  title     = {A Preliminary Test of the Presence of Window Dressing: Evidence from Institutional Stock Trading},
+  journal   = {Journal of Accounting, Auditing \& Finance},
+  volume    = {2},
+  number    = {3},
+  pages     = {239--256},
+  year      = {1987}
+}
+
+@article{chan2009,
+  author    = {Chan, Kalok and Covrig, Vicentiu},
+  title     = {Institutional Trading and Stock Return Seasonalities},
+  journal   = {Journal of Banking \& Finance},
+  volume    = {33},
+  number    = {4},
+  pages     = {588--597},
+  year      = {2009}
+}
+
+
+@article{alississ2015,
+  author  = {Al-Ississ, Mohamad},
+  title   = {The holy day effect},
+  journal = {Journal of Behavioral and Experimental Finance},
+  volume  = {5},
+  pages   = {60--80},
+  year    = {2015}
+}
+
+
+
+
+
+
+@article{bildersee1987,
+  author  = {Bildersee, John S. and Kahn, Norman},
+  title   = {A Preliminary Test of the Presence of Window Dressing},
+  journal = {Journal of Accounting, Auditing \& Finance},
+  volume  = {2},
+  number  = {3},
+  pages   = {239--256},
+  year    = {1987}
+}
+
+
+
+
+
+
+@article{chenchien2011,
+  author  = {Chen, Tsung-Chieh and Chien, Chien-Chiang},
+  title   = {Size effect in January and cultural influences in an emerging stock market: The perspective of behavioral finance},
+  journal = {Pacific-Basin Finance Journal},
+  volume  = {19},
+  number  = {2},
+  pages   = {208--229},
+  year    = {2011}
+}
+
+
+
+@article{chiah2021,
+  author  = {Chiah, Menzie and Zhong, Alex},
+  title   = {Tuesday Blues and the day-of-the-week effect in stock returns},
+  journal = {Journal of Banking \& Finance},
+  volume  = {133},
+  pages   = {106243},
+  year    = {2021}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@inproceedings{heininen2008,
+  author  = {Heininen, Petri and Puttonen, Vesa},
+  title   = {Stock Market Efficiency in the Transition Economies through Calendar Anomalies},
+  booktitle = {10th Bi-Annual EACES Conference},
+  year    = {2008}
+}
+
+@article{hoffstein2019,
+  author  = {Hoffstein, Corey and Sibears, David J. and Faber, Nathan},
+  title   = {Rebalance Timing Luck: The Difference between Hired and Fired},
+  journal = {The Journal of Index Investing},
+  volume  = {10},
+  number  = {1},
+  pages   = {27--36},
+  year    = {2019},
+  doi     = {10.3905/jii.2019.1.070}
+}
+@article{rattray2019strategic,
+  title   = {Strategic Rebalancing},
+  author  = {Rattray, Sandy and Granger, Nick and Harvey, Campbell R. and van Hemert, Otto},
+  journal = {Journal of Portfolio Management},
+  volume  = {46},
+  number  = {6},
+  pages   = {10--31},
+  year    = {2020},
+  doi     = {10.3905/jpm.2020.1.150},
+  url     = {https://doi.org/10.3905/jpm.2020.1.150}
+}
+@article{liu2020term,
+  author    = {Liu, Xiaoyan and Viswanathan, V.},
+  title     = {The Term Structure of the Rebalancing Premium},
+  journal   = {The Journal of Investing},
+  volume    = {29},
+  number    = {2},
+  pages     = {91--108},
+  year      = {2020},
+  month     = {April},
+  doi       = {10.3905/joi.2020.1.127},
+  url       = {https://doi.org/10.3905/joi.2020.1.127}
+}
+@techreport{ying2022rational,
+  author      = {Ying, Allison and Rabinovich, Michael and Geysen, Aidan},
+  title       = {Rational Rebalancing: An Analytical Approach to Multiasset Portfolio Rebalancing Decisions and Insights},
+  year        = {2022},
+  institution = {Vanguard Research},
+  type        = {Research Report},
+  url         = {https://corporate.vanguard.com/content/dam/corp/research/pdf/rational_rebalancing_analytical_approach_to_multiasset_portfolio_rebalancing.pdf},
+  note        = {Corpus ID: 253425392}
+}
+
+
+
+
+@article{heininen2008stock,
+  title={Stock Market Efficiency in the Transition Economies through the Lens of Calendar Anomalies},
+  author={Heininen, Polina and Puttonen, Vesa},
+  year={2008},
+  abstract={Calendar regularities that challenge the Efficient Market Hypothesis are widely explored phenomena in the advanced economies. However, there is little research concerning the prevalence of these anomalies in the Central and Eastern European (CEE) states. This study provides empirical evidence on market efficiency and day-of-the-week, month-of-the-year, turn-of-the-month and Halloween effects in twelve transition economies. The results indicate that the CEE-countries stock markets are weakly efficient in terms of day-of-the-week and month-of-the-year anomalies. The turn-of-the-month effect is detected in Croatia, Hungary, Poland, Romania, Russia and Slovenia. In these countries the average 5-day turn-of-the-month yield accounts for 85% of the monthly return. Trading strategy based on the Halloween effect produces statistically significant abnormal returns in the Czech Republic, Estonia, Latvia, Lithuania and Russia. In general, calendar anomalies show signs of declination throughout the sample period and the market efficiency increases gradually in all examined countries.},
+  url={https://www.hse.ru/data/090/182/1235/Heininen_Puttonen_paper.pdf}
+}
+
+
+
